@@ -6,22 +6,29 @@ import {
   Dimensions,
 } from "react-native";
 import Animated from "react-native-reanimated";
+import { Button } from "../../components";
 
 interface SubslideProps {
   subtitle: string;
   description: string;
   last?: boolean;
+  onPress: () => void;
 }
-
 const Subslide = ({
   subtitle,
   description,
   last,
+  onPress,
 }: SubslideProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.subtitle}>{subtitle}</Text>
       <Text style={styles.description}>{description}</Text>
+      <Button
+        label={last ? "Let's get started" : "Next"}
+        variant={last ? "primary" : "default"}
+        {...{ onPress }}
+      />
     </View>
   );
 };
