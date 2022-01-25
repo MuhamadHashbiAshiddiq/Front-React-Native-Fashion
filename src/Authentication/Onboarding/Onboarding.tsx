@@ -1,15 +1,22 @@
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import {
+  Animated,
+  ScrollView,
+  View,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
+import { useValue } from "react-native-redash";
 
 import Slide from "./Slide";
 
 const { width, height } = Dimensions.get("window");
 const Onboarding = () => {
+  const x = useValue(0);
   return (
     <View style={styles.container}>
       <View style={styles.slider}>
-        <ScrollView
+        <Animated.ScrollView
           horizontal
           snapToInterval={width}
           decelerationRate="fast"
@@ -20,7 +27,7 @@ const Onboarding = () => {
           <Slide label="Playful" right />
           <Slide label="Excentric" />
           <Slide label="Funky" right />
-        </ScrollView>
+        </Animated.ScrollView>
       </View>
       <View style={styles.footer}>
         <View
