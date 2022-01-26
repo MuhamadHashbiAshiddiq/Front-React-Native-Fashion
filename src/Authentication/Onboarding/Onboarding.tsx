@@ -17,10 +17,8 @@ import {
 } from "react-native-redash";
 
 import Subslide from "./Subslide";
-import Slide, { SLIDE_HEIGHT } from "./Slide";
+import Slide, { SLIDE_HEIGHT, BORDER_RADIUS } from "./Slide";
 import Dot from "./Dot";
-
-const BORDER_RADIUS = 75;
 
 const { width } = Dimensions.get("window");
 
@@ -31,6 +29,7 @@ const slides = [
     description:
       "Confused about your outfit? Don't worry! Find the best outfit here!",
     color: "#BFEAF5",
+    picture: require("./assets/image1.png")
   },
   {
     title: "Playful",
@@ -38,6 +37,7 @@ const slides = [
     description:
       "Hating the clothes in your wardrobe? Explore hundreds of outfit ideas",
     color: "#BEECC4",
+    picture: require("./assets/image2.png")
   },
   {
     title: "Excentric",
@@ -45,6 +45,7 @@ const slides = [
     description:
       "Create your individual & unique style and look amazing everyday ",
     color: "#FFE4D9",
+    picture: require("./assets/image3.png")
   },
   {
     title: "Funky",
@@ -52,6 +53,7 @@ const slides = [
     description:
       "Discover the latest trends in fashion and explore your personality",
     color: "#FFDDDD",
+    picture: require("./assets/image4.png")
   },
 ];
 
@@ -78,11 +80,11 @@ const Onboarding = () => {
           bounces={false}
           {...scrollHandler}
         >
-          {slides.map(({ title }, index) => (
+          {slides.map(({ title, picture }, index) => (
             <Slide
               key={index}
               right={!!(index % 2)}
-              {...{ title }}
+              {...{ title, picture }}
             />
           ))}
         </Animated.ScrollView>
