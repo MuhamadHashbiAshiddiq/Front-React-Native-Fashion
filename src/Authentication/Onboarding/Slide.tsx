@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
 
   picture: {
     ...StyleSheet.absoluteFillObject,
-    // top: SLIDE_HEIGHT - SLIDE_HEIGHT * 0.61,
     width: undefined,
     height: undefined,
     borderBottomRightRadius: BORDER_RADIUS
