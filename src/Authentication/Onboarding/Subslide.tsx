@@ -3,9 +3,9 @@ import {
   View,
   StyleSheet,
   Text,
-  Dimensions,
 } from "react-native";
 import Animated from "react-native-reanimated";
+
 import { Button } from "../../components";
 
 interface SubslideProps {
@@ -14,6 +14,7 @@ interface SubslideProps {
   last?: boolean;
   onPress: () => void;
 }
+
 const Subslide = ({
   subtitle,
   description,
