@@ -20,11 +20,9 @@ import {
 } from "react-native-redash";
 
 import Subslide from "./Subslide";
-import Slide, {
-  SLIDE_HEIGHT,
-  BORDER_RADIUS,
-} from "./Slide";
+import Slide, { SLIDE_HEIGHT } from "./Slide";
 import Dot from "./Dot";
+import { theme } from "../../components";
 
 const { width } = Dimensions.get("window");
 
@@ -110,9 +108,9 @@ const Onboarding = () => {
               <Image
                 source={picture.src}
                 style={{
-                  width: width - BORDER_RADIUS,
+                  width: width - theme.borderRadii.xl,
                   height:
-                    ((width - BORDER_RADIUS) *
+                    ((width - theme.borderRadii.xl) *
                       picture.height) /
                     picture.width,
                 }}
@@ -198,13 +196,13 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     alignItems: "center",
     justifyContent: "flex-end",
-    borderBottomRightRadius: BORDER_RADIUS,
+    borderBottomRightRadius: theme.borderRadii.xl,
     overflow: "hidden",
   },
 
   slider: {
     height: SLIDE_HEIGHT,
-    borderBottomRightRadius: BORDER_RADIUS,
+    borderBottomRightRadius: theme.borderRadii.xl,
   },
 
   footer: {
@@ -214,12 +212,12 @@ const styles = StyleSheet.create({
   footerContent: {
     flex: 1,
     backgroundColor: "white",
-    borderTopLeftRadius: BORDER_RADIUS,
+    borderTopLeftRadius: theme.borderRadii.xl,
   },
 
   pagination: {
     ...StyleSheet.absoluteFillObject,
-    height: BORDER_RADIUS,
+    height: theme.borderRadii.xl,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",

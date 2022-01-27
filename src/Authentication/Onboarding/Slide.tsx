@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  View,
-  Dimensions,
-  StyleSheet,
-} from "react-native";
+import { View, Dimensions, StyleSheet } from "react-native";
 
 import { Text } from "../../components";
 
@@ -11,14 +7,12 @@ const { width, height } = Dimensions.get("window");
 
 export const SLIDE_HEIGHT = 0.61 * height;
 
-export const BORDER_RADIUS = 75;
-
 interface SlideProps {
   title: string;
   right?: boolean;
 }
 
-const Slide = ({ title, right}: SlideProps) => {
+const Slide = ({ title, right }: SlideProps) => {
   //Transform & Rotate
   const transform = [
     { translateY: (SLIDE_HEIGHT - 100) / 2 },
