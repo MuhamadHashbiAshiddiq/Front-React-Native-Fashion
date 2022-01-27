@@ -2,11 +2,12 @@ import { createBox, createText } from "@shopify/restyle";
 
 const theme = {
   colors: {
+    white: "white",
+    button: "#0C0D34",
     primary: "#2CB9B0",
     title: "#0C0D34",
     text: "rgba(12, 13, 52, 0.7)",
     grey: "rgba(12, 13, 52, 0.05)",
-    white: "white",
   },
 
   spacing: {

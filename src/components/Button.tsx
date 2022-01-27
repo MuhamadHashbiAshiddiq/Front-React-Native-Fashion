@@ -6,7 +6,7 @@ import { useTheme } from "@shopify/restyle";
 import { Theme, Text } from "./Theme";
 
 interface ButtonProps {
-  variant: "default" | "primary";
+  variant: "default" | "primary" | "transparent";
   label: string;
   onPress: () => void;
 }
@@ -20,11 +20,13 @@ const Button = ({
   const backgroundColor =
     variant === "primary"
       ? theme.colors.primary
+      : variant === "transparent"
+      ? "transparent"
       : theme.colors.grey;
   const color =
     variant === "primary"
       ? theme.colors.white
-      : theme.colors.text;
+      : theme.colors.button;
   return (
     <RectButton
       style={[styles.container, { backgroundColor }]}
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 25,
     height: 50,
-    width: 185,
+    width: 205,
     justifyContent: "center",
     alignItems: "center",
   },
