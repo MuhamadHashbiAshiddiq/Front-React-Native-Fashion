@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import Animated, {
   divide,
   multiply,
+  interpolate,
+  Extrapolate,
 } from "react-native-reanimated";
 
 import {
@@ -9,6 +11,7 @@ import {
   View,
   StyleSheet,
   Dimensions,
+  Image,
 } from "react-native";
 
 import {
@@ -89,6 +92,34 @@ const Onboarding = () => {
       <Animated.View
         style={[styles.slider, { backgroundColor }]}
       >
+        {slides.map(({ picture }, index) => {
+          const opacity = interpolate(x, {
+            inputRange: [
+              (index - 0.6) * width,
+              index * width,
+              (index + 0.6) * width,
+            ],
+            outputRange: [0, 1, 0],
+            extrapolate: Extrapolate.CLAMP,
+          });
+          return (
+            <Animated.View
+              style={[styles.underlay, { opacity }]}
+              key={index}
+            >
+              <Image
+                source={picture.src}
+                style={{
+                  width: width - BORDER_RADIUS,
+                  height:
+                    ((width - BORDER_RADIUS) *
+                      picture.height) /
+                    picture.width,
+                }}
+              />
+            </Animated.View>
+          );
+        })}
         <Animated.ScrollView
           ref={scroll}
           horizontal
@@ -161,6 +192,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+  },
+
+  underlay: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    borderBottomRightRadius: BORDER_RADIUS,
+    overflow: "hidden",
   },
 
   slider: {

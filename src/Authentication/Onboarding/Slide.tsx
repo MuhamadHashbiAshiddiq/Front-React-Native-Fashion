@@ -3,8 +3,6 @@ import {
   View,
   Dimensions,
   StyleSheet,
-  Image,
-  ImageRequireSource,
 } from "react-native";
 
 import { Text } from "../../components";
@@ -18,14 +16,9 @@ export const BORDER_RADIUS = 75;
 interface SlideProps {
   title: string;
   right?: boolean;
-  picture: {
-    src: ImageRequireSource;
-    width: number;
-    height: number;
-  };
 }
 
-const Slide = ({ title, right, picture }: SlideProps) => {
+const Slide = ({ title, right}: SlideProps) => {
   //Transform & Rotate
   const transform = [
     { translateY: (SLIDE_HEIGHT - 100) / 2 },
@@ -37,17 +30,6 @@ const Slide = ({ title, right, picture }: SlideProps) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.underlay}>
-        <Image
-          source={picture.src}
-          style={{
-            width: width - BORDER_RADIUS,
-            height:
-              ((width - BORDER_RADIUS) * picture.height) /
-              picture.width,
-          }}
-        />
-      </View>
       <View style={[styles.titleContainer, { transform }]}>
         <Text variant="hero">{title}</Text>
       </View>
@@ -63,12 +45,6 @@ const styles = StyleSheet.create({
   titleContainer: {
     height: 100,
     justifyContent: "center",
-  },
-
-  underlay: {
-    ...StyleSheet.absoluteFillObject,
-    alignItems: "center",
-    justifyContent: "flex-end",
   },
 });
 
