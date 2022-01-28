@@ -6,6 +6,8 @@ import {
   StackNavigationProps,
 } from "../../components/Navigation";
 
+import Container from "../../components/Container";
+
 import theme, { Box, Text } from "../../components/Theme";
 
 const { width } = Dimensions.get("window");
@@ -67,11 +69,16 @@ const Welcome = ({
           <Button
             variant="primary"
             label="Have an account? Login"
+            onPress={() => navigation.navigate("Login")}
           />
-          <Button label="Join us, it's Free" />
+          <Button
+            label="Join us, it's Free"
+            onPress={() => true}
+          />
           <Button
             variant="transparent"
             label="Forgot password?"
+            onPress={() => true}
           />
         </Box>
       </Box>

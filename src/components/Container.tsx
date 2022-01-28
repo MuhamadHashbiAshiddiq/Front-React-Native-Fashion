@@ -5,6 +5,7 @@ import {
   StyleSheet,
   StatusBar,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import theme, { Box } from "./Theme";
 
@@ -25,6 +26,8 @@ const Container = ({
   children,
   footer,
 }: ContainerProps) => {
+  const insets = useSafeAreaInsets();
+
   return (
     <Box flex={1} backgroundColor="secondary">
       <StatusBar barStyle="light-content" />
@@ -63,8 +66,9 @@ const Container = ({
           {children}
         </Box>
       </Box>
-      <Box height={200} backgroundColor="secondary">
+      <Box backgroundColor="secondary" paddingTop="m">
         {footer}
+        <Box height={insets.bottom} />
       </Box>
     </Box>
   );
