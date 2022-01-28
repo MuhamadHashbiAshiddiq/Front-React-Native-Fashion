@@ -5,6 +5,7 @@ const theme = {
     white: "white",
     button: "#0C0D34",
     primary: "#2CB9B0",
+    secondary: "#0C0D34",
     title: "#0C0D34",
     text: "rgba(12, 13, 52, 0.7)",
     grey: "rgba(12, 13, 52, 0.05)",
@@ -35,13 +36,13 @@ const theme = {
     title1: {
       fontSize: 28,
       fontFamily: "SFProDisplay-Semibold",
-      color: "title",
+      color: "secondary",
     },
     title2: {
       fontSize: 24,
       lineHeight: 30,
       fontFamily: "SFProDisplay-Semibold",
-      color: "title",
+      color: "secondary",
     },
     body: {
       fontSize: 16,

@@ -1,7 +1,12 @@
-import React from "react";
-import { Image, Dimensions } from "react-native";
+import React, { ReactNode } from "react";
+import {
+  Image,
+  Dimensions,
+  StyleSheet,
+  StatusBar,
+} from "react-native";
 
-import { Box } from "./Theme";
+import theme, { Box } from "./Theme";
 
 export const assets = [
   require("./assets/patterns/patterns1.png"),
@@ -13,16 +18,53 @@ const height = width * aspectRatio;
 
 interface ContainerProps {
   children: ReactNode;
+  footer: ReactNode;
 }
 
-const Container = () => {
+const Container = ({
+  children,
+  footer,
+}: ContainerProps) => {
   return (
-    <Box flex={1}>
-      <Box>
+    <Box flex={1} backgroundColor="secondary">
+      <StatusBar barStyle="light-content" />
+      <Box backgroundColor="white">
+        <Box
+          borderBottomLeftRadius="xl"
+          overflow="hidden"
+          height={height * 0.61}
+        >
+          <Image
+            source={assets[0]}
+            style={{
+              width,
+              height,
+              borderBottomLeftRadius: theme.borderRadii.xl,
+            }}
+          />
+        </Box>
+      </Box>
+      <Box flex={1} overflow="hidden">
         <Image
           source={assets[0]}
-          style={{ width, height }}
+          style={{
+            ...StyleSheet.absoluteFillObject,
+            width,
+            height,
+            top: -height * 0.61,
+          }}
         />
+        <Box
+          borderRadius="xl"
+          borderTopLeftRadius={0}
+          backgroundColor="white"
+          flex={1}
+        >
+          {children}
+        </Box>
+      </Box>
+      <Box height={200} backgroundColor="secondary">
+        {footer}
       </Box>
     </Box>
   );
