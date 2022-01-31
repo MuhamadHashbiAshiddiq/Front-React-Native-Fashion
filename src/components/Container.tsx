@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import theme, { Box } from "./Theme";
+import { Box, useTheme } from "./Theme";
 
 export const assets = [
   require("./assets/patterns/patterns1.png"),
@@ -26,6 +26,7 @@ const Container = ({
   children,
   footer,
 }: ContainerProps) => {
+  const theme = useTheme();
   const insets = useSafeAreaInsets();
 
   return (

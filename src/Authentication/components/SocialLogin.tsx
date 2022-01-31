@@ -1,9 +1,7 @@
 import React from "react";
 import Svg, { Path } from "react-native-svg";
 
-import { Box, theme } from "../../components";
-
-const SIZE = theme.borderRadii.l * 2;
+import { Box, useTheme } from "../../components";
 
 const Google = () => (
   <Svg
@@ -75,6 +73,8 @@ const Apple = () => (
 );
 
 const SocialIcon = ({ children }: SocialIconProps) => {
+  const theme = useTheme();
+  const SIZE = theme.borderRadii.l * 2;
   return (
     <Box
       marginHorizontal="s"

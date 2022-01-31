@@ -8,7 +8,11 @@ import {
 
 import Container from "../../components/Container";
 
-import theme, { Box, Text } from "../../components/Theme";
+import theme, {
+  Box,
+  Text,
+  useTheme,
+} from "../../components/Theme";
 
 const { width } = Dimensions.get("window");
 
@@ -23,6 +27,7 @@ export const assets = [picture.src];
 const Welcome = ({
   navigation,
 }: StackNavigationProps<Routes, "Welcome">) => {
+  const theme = useTheme();
   return (
     <Box flex={1} backgroundColor="white">
       <Box
