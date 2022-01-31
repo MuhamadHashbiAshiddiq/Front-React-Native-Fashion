@@ -9,6 +9,8 @@ const theme = {
     title: "#0C0D34",
     text: "rgba(12, 13, 52, 0.7)",
     grey: "rgba(12, 13, 52, 0.05)",
+    darkGrey: "#8A8D90",
+    danger: "#FF0058",
   },
 
   spacing: {
@@ -54,6 +56,7 @@ const theme = {
       fontSize: 15,
       fontFamily: "SFProDisplay-Medium",
       color: "text",
+      textAlign: "center",
     },
   },
   breakpoints: {},
