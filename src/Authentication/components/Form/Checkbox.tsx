@@ -6,14 +6,18 @@ import { Box, Text } from "../../../components";
 
 interface CheckboxProps {
   label: string;
+  checked: boolean;
+  onChange: () => void;
 }
 
-const Checkbox = ({ label }: CheckboxProps) => {
-  const [checked, setChecked] = useState(false);
-
+const Checkbox = ({
+  label,
+  onChange,
+  checked,
+}: CheckboxProps) => {
   return (
     <RectButton
-      onPress={() => setChecked((c) => !c)}
+      onPress={() => onChange()}
       style={{ justifyContent: "center" }}
     >
       <Box flexDirection="row" alignItems="center">

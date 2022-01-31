@@ -66,16 +66,21 @@ const Login = () => {
 
         <Formik
           validationSchema={LoginSchema}
-          initialValues={{ email: "", password: "" }}
+          initialValues={{
+            email: "",
+            password: "",
+            remember: false,
+          }}
           onSubmit={(values) => console.log(values)}
         >
           {({
             handleChange,
             handleBlur,
             handleSubmit,
-            values,
             errors,
             touched,
+            values,
+            setFieldValue,
           }) => (
             <Box>
               <Box marginBottom="m">
@@ -100,7 +105,16 @@ const Login = () => {
                 flexDirection="row"
                 justifyContent="space-between"
               >
-                <Checkbox label="Remember me." />
+                <Checkbox
+                  label="Remember me"
+                  checked={values.remember}
+                  onChange={() =>
+                    setFieldValue(
+                      "remember",
+                      !values.remember
+                    )
+                  }
+                />
                 <Button
                   variant="transparent"
                   onPress={() => true}
