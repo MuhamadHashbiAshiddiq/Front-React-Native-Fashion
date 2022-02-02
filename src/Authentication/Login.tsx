@@ -125,7 +125,9 @@ const Login = ({
             />
             <Button
               variant="transparent"
-              onPress={() => true}
+              onPress={() =>
+                navigation.navigate("ForgotPassword")
+              }
             >
               <Text color="primary">Forget Password?</Text>
             </Button>
