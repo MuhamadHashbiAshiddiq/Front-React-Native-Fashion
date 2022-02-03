@@ -35,7 +35,7 @@ const LoginSchema = Yup.object().shape({
 interface LoginProps {
   navigation: CompositeNavigationProp<
     StackNavigationProp<AuthenticationRoutes, "Login">,
-    DrawerNavigationProp<HomeRoutes, "Home">
+    DrawerNavigationProp<HomeRoutes, "OutfitIdeas">
   >;
 }
 
@@ -55,7 +55,7 @@ const Login = ({ navigation }: LoginProps) => {
       password: "",
       remember: false,
     },
-    onSubmit: () => navigation.navigate("Home"),
+    onSubmit: () => navigation.navigate("OutfitIdeas"),
   });
 
   const password = useRef<RNTextInput>(null);
