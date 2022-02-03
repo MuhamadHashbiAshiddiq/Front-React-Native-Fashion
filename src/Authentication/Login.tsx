@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import TextInput from "./components/Form/TextInput";
-import Checkbox from "./components/Form/Checkbox";
+import TextInput from "../components/Form/TextInput";
+import Checkbox from "../components/Form/Checkbox";
 import Footer from "./components/Footer";
 
 import {

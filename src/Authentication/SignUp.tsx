@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import TextInput from "./components/Form/TextInput";
+import TextInput from "../components/Form/TextInput";
 import Footer from "./components/Footer";
 
 import {

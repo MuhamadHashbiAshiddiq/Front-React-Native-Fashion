@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { RectButton } from "react-native-gesture-handler";
 import { Feather as Icon } from "@expo/vector-icons";
 
-import { Box, Text } from "../../../components";
+import { Box, Text } from "../Theme";
 
 interface CheckboxProps {
   label: string;

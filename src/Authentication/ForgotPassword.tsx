@@ -15,7 +15,7 @@ import {
   Text,
   Button,
 } from "../components";
-import TextInput from "./components/Form/TextInput";
+import TextInput from "../components/Form/TextInput";
 
 const ForgotPasswordSchema = Yup.object().shape({
   email: Yup.string()

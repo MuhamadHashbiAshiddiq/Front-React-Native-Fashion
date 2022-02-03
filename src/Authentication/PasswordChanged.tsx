@@ -5,7 +5,8 @@ import {
   Box,
   Text,
   Container,
-  CloseButton,
+  RoundedIconButton,
+  RoundedIcon,
   Button,
 } from "../components";
 import {
@@ -23,7 +24,13 @@ const PasswordChanged = ({
       pattern={0}
       footer={
         <Box flexDirection="row" justifyContent="center">
-          <CloseButton onPress={() => navigation.pop()} />
+          <RoundedIconButton
+            backgroundColor="white"
+            color="secondary"
+            name="x"
+            size={60}
+            onPress={() => navigation.pop()}
+          />
         </Box>
       }
     >
@@ -32,34 +39,25 @@ const PasswordChanged = ({
         justifyContent="center"
         alignItems="center"
       >
-        <Box
+        <RoundedIcon
+          name="check"
+          size={SIZE}
           backgroundColor="primaryLight"
-          style={{
-            height: SIZE,
-            width: SIZE,
-            borderRadius: SIZE / 2,
-          }}
-          justifyContent="center"
-          alignItems="center"
-          marginBottom="xl"
-        >
-          <Text color="primary" textAlign="center">
-            <Icon name="check" size={32} />
-          </Text>
-        </Box>
+          color="primary"
+        />
         <Text
           variant="title1"
           textAlign="center"
-          marginBottom="l"
+          marginVertical="l"
         >
-          Forgot your password?
+          Your password was successfully changed
         </Text>
         <Text
           variant="body"
           textAlign="center"
           marginBottom="l"
         >
-          Enter the email associated with your account
+          Close this window and login again
         </Text>
         <Box alignItems="center" marginTop="m">
           <Button
