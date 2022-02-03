@@ -15,7 +15,7 @@ const RoundedIcon = ({
   size,
   color,
   backgroundColor,
-}) => {
+}: RoundedIconProps) => {
   const iconSize = size * 0.8;
   return (
     <Box
@@ -30,10 +30,7 @@ const RoundedIcon = ({
         style={{ width: iconSize, height: iconSize }}
         {...{ color }}
       >
-        <Icon
-          size={iconSize}
-          {...{ name }}
-        />
+        <Icon size={iconSize} {...{ name }} />
       </Text>
     </Box>
   );

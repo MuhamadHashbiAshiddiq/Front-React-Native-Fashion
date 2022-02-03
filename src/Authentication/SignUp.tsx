@@ -12,7 +12,7 @@ import {
   Box,
 } from "../components";
 import {
-  Routes,
+  AuthenticationRoutes,
   StackNavigationProps,
 } from "../components/Navigation";
 
@@ -31,7 +31,7 @@ const SignUpSchema = Yup.object().shape({
 
 const SignUp = ({
   navigation,
-}: StackNavigationProps<Routes, "SignUp">) => {
+}: StackNavigationProps<AuthenticationRoutes, "SignUp">) => {
   const {
     handleChange,
     handleBlur,

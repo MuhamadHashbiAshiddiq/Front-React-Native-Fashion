@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import Footer from "./components/Footer";
 
 import {
-  Routes,
+  AuthenticationRoutes,
   StackNavigationProps,
 } from "../components/Navigation";
 import {
@@ -25,7 +25,7 @@ const ForgotPasswordSchema = Yup.object().shape({
 
 const ForgotPassword = ({
   navigation,
-}: StackNavigationProps<Routes, "ForgotPassword">) => {
+}: StackNavigationProps<AuthenticationRoutes, "ForgotPassword">) => {
   const {
     handleChange,
     handleBlur,

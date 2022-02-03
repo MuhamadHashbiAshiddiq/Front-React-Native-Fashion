@@ -10,7 +10,7 @@ import {
   Button,
 } from "../components";
 import {
-  Routes,
+  AuthenticationRoutes,
   StackNavigationProps,
 } from "../components/Navigation";
 
@@ -18,7 +18,7 @@ const SIZE = 80;
 
 const PasswordChanged = ({
   navigation,
-}: StackNavigationProps<Routes, "PasswordChanged">) => {
+}: StackNavigationProps<AuthenticationRoutes, "PasswordChanged">) => {
   return (
     <Container
       pattern={0}

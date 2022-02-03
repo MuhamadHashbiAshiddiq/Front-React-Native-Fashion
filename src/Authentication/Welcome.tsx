@@ -4,7 +4,7 @@ import { BorderlessButton } from "react-native-gesture-handler";
 
 import { Button } from "../components";
 import {
-  Routes,
+  AuthenticationRoutes,
   StackNavigationProps,
 } from "../components/Navigation";
 import Container from "../components/Container";
@@ -26,7 +26,7 @@ export const assets = [picture.src];
 
 const Welcome = ({
   navigation,
-}: StackNavigationProps<Routes, "Welcome">) => {
+}: StackNavigationProps<AuthenticationRoutes, "Welcome">) => {
   const theme = useTheme();
   return (
     <Box flex={1} backgroundColor="white">

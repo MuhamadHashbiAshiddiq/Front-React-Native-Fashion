@@ -27,7 +27,7 @@ import {
   makeStyles,
 } from "../../components/Theme";
 import {
-  Routes,
+  AuthenticationRoutes,
   StackNavigationProps,
 } from "../../components/Navigation";
 
@@ -90,7 +90,7 @@ export const assets = slides.map(
 
 const Onboarding = ({
   navigation,
-}: StackNavigationProps<Routes, "Onboarding">) => {
+}: StackNavigationProps<AuthenticationRoutes, "Onboarding">) => {
   const styles = useStyles();
   const theme = useTheme();
   const scroll = useRef<Animated.ScrollView>(null);

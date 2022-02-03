@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes } from "../components/Navigation";
+import { AuthenticationRoutes } from "../components/Navigation";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import Onboarding, {
@@ -19,7 +19,7 @@ export const assets = [
   ...welcomeAssets,
 ];
 
-const AuthenticationStack = createStackNavigator<Routes>();
+const AuthenticationStack = createStackNavigator<AuthenticationRoutes>();
 
 export const AuthenticationNavigator = () => {
   return (
