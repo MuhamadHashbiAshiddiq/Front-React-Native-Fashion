@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, Dimensions } from "react-native";
+import { BorderlessButton } from "react-native-gesture-handler";
 
 import { Button } from "../components";
 import {
@@ -77,13 +78,17 @@ const Welcome = ({
           />
           <Button
             label="Join us, it's Free"
-            onPress={() => true}
+            onPress={() => navigation.navigate("SignUp")}
           />
-          <Button
-            variant="transparent"
-            label="Forgot password?"
-            onPress={() => true}
-          />
+          <BorderlessButton
+            onPress={() =>
+              navigation.navigate("ForgotPassword")
+            }
+          >
+            <Text variant="button" color="secondary">
+              Forgot password?
+            </Text>
+          </BorderlessButton>
         </Box>
       </Box>
     </Box>

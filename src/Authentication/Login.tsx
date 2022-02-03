@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
-import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useFormik } from "formik";
+import { BorderlessButton } from "react-native-gesture-handler";
+
+import Footer from "./components/Footer";
 
 import TextInput from "../components/Form/TextInput";
 import Checkbox from "../components/Form/Checkbox";
-import Footer from "./components/Footer";
 
 import {
   Container,
@@ -115,6 +117,8 @@ const Login = ({
           <Box
             flexDirection="row"
             justifyContent="space-between"
+            alignItems="center"
+            marginVertical="s"
           >
             <Checkbox
               label="Remember me"
@@ -123,14 +127,15 @@ const Login = ({
                 setFieldValue("remember", !values.remember)
               }
             />
-            <Button
-              variant="transparent"
+            <BorderlessButton
               onPress={() =>
                 navigation.navigate("ForgotPassword")
               }
             >
-              <Text color="primary">Forget Password?</Text>
-            </Button>
+              <Text variant="button" color="primary">
+                Forget Password?
+              </Text>
+            </BorderlessButton>
           </Box>
 
           <Box alignItems="center" marginTop="m">
