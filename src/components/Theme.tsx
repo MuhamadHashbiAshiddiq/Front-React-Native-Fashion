@@ -20,7 +20,11 @@ export const theme = {
     grey: "rgba(12, 13, 52, 0.05)",
     darkGrey: "#8A8D90",
     danger: "#FF0058",
-    primaryLight: "#E7F9F7"
+    primaryLight: "#E7F9F7",
+    violet: "#442CB9",
+    orange: "#FE5E33",
+    pink: "#FF87A2",
+    yellow: "#FFC641",
   },
 
   spacing: {

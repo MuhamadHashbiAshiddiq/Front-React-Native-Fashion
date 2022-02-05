@@ -20,4 +20,8 @@ const RoundedIconButton = ({
   );
 };
 
+RoundedIconButton.defaultProps = {
+  iconRatio: 0.7,
+};
+
 export default RoundedIconButton;

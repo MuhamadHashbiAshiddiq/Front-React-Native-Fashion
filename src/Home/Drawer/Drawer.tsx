@@ -1,7 +1,15 @@
 import React from "react";
 import { Dimensions, Image } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Box, useTheme } from "../components";
+import DrawerItem, { DrawerItemProps } from "./DrawerItem";
+
+import {
+  Box,
+  useTheme,
+  Text,
+  RoundedIconButton,
+} from "../../components";
 
 const { width } = Dimensions.get("window");
 export const DRAWER_WIDTH = width * 0.715;
@@ -19,25 +27,25 @@ const items: DrawerItemProps[] = [
     icon: "heart",
     label: "Favorite Outfits",
     screen: "FavoriteOutfits",
-    color: "drawer1",
+    color: "orange",
   },
   {
     icon: "user",
     label: "Edit Profile",
     screen: "EditProfile",
-    color: "drawer2",
+    color: "yellow",
   },
   {
     icon: "clock",
     label: "Transaction History",
     screen: "TransactionHistory",
-    color: "drawer3",
+    color: "pink",
   },
   {
     icon: "settings",
     label: "Notification Settings",
     screen: "Settings",
-    color: "drawer4",
+    color: "violet",
   },
   {
     icon: "log-out",
@@ -49,6 +57,7 @@ const items: DrawerItemProps[] = [
 
 const Drawer = () => {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
   return (
     <Box flex={1}>
       <Box flex={0.2} backgroundColor="white">
@@ -59,14 +68,34 @@ const Drawer = () => {
           right={0}
           bottom={0}
           borderBottomRightRadius="xl"
+          justifyContent="space-between"
           backgroundColor="secondary"
-        />
+          paddingHorizontal="m"
+          flexDirection="row"
+          style={{ paddingTop: insets.top }}
+        >
+          <RoundedIconButton
+            size={24}
+            name="x"
+            color="white"
+            backgroundColor="secondary"
+            omPress={() => true}
+          />
+          <Text color="white">MY PROFILE</Text>
+          <RoundedIconButton
+            size={24}
+            name="shopping-bag"
+            color="white"
+            backgroundColor="secondary"
+            omPress={() => true}
+          />
+        </Box>
       </Box>
-      <Box flex={0.8} overflow="hidden">
+      <Box flex={0.8}>
         <Box flex={1} backgroundColor="secondary" />
         <Box flex={1} backgroundColor="primaryLight" />
         <Image
-          source={require("../components/assets/patterns/patterns3.png")}
+          source={require("../../components/assets/patterns/patterns3.png")}
           style={{
             position: "absolute",
             bottom: -height * 0.61,
@@ -85,7 +114,30 @@ const Drawer = () => {
           backgroundColor="white"
           borderTopLeftRadius="xl"
           borderBottomRightRadius="xl"
-        />
+          justifyContent="center"
+          padding="xl"
+        >
+          <Box
+            position="absolute"
+            left={DRAWER_WIDTH / 2 - 50}
+            top={-50}
+            backgroundColor="primary"
+            width={100}
+            height={100}
+            style={{ borderRadius: 50 }}
+          />
+          <Box marginVertical="m">
+            <Text variant="title1" textAlign="center">
+              Mike Peter
+            </Text>
+            <Text variant="body" textAlign="center">
+              mike@example.com
+            </Text>
+          </Box>
+          {items.map((item) => (
+            <DrawerItem key={item.screen} {...item} />
+          ))}
+        </Box>
       </Box>
       <Box
         backgroundColor="white"
@@ -94,7 +146,7 @@ const Drawer = () => {
         height={height * 0.61}
       >
         <Image
-          source={require("../components/assets/patterns/patterns3.png")}
+          source={require("../../components/assets/patterns/patterns3.png")}
           style={{
             position: "absolute",
             left: 0,
