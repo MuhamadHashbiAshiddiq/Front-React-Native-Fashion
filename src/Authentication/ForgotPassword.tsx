@@ -25,7 +25,7 @@ const ForgotPasswordSchema = Yup.object().shape({
 
 const ForgotPassword = ({
   navigation,
-}: StackNavigationProps<AuthenticationRoutes, "ForgotPassword">) => {
+}: StackNavigationProps<"ForgotPassword">) => {
   const {
     handleChange,
     handleBlur,
@@ -52,47 +52,44 @@ const ForgotPassword = ({
 
   return (
     <Container pattern={2} {...{ footer }}>
-      <Box padding="xl" justifyContent="center" flex={1}>
-        <Text
-          variant="title1"
-          textAlign="center"
-          marginBottom="l"
-        >
-          Forgot Password
-        </Text>
-        <Text
-          variant="body"
-          textAlign="center"
-          marginBottom="l"
-        >
-          Enter the email address associated with your
-          account
-        </Text>
+      <Text
+        variant="title1"
+        textAlign="center"
+        marginBottom="l"
+      >
+        Forgot Password
+      </Text>
+      <Text
+        variant="body"
+        textAlign="center"
+        marginBottom="l"
+      >
+        Enter the email address associated with your account
+      </Text>
 
-        <Box>
-          <Box marginBottom="m">
-            <TextInput
-              icon="mail"
-              placeholder="Enter your email"
-              onChangeText={handleChange("email")}
-              onBlur={handleBlur("email")}
-              error={errors.email}
-              touched={touched.email}
-              autoCapitalize="none"
-              autoCompleteType="email"
-              returnKeyType="go"
-              returnKeyLabel="go"
-              onSubmitEditing={handleSubmit}
-            />
-          </Box>
+      <Box>
+        <Box marginBottom="m">
+          <TextInput
+            icon="mail"
+            placeholder="Enter your email"
+            onChangeText={handleChange("email")}
+            onBlur={handleBlur("email")}
+            error={errors.email}
+            touched={touched.email}
+            autoCapitalize="none"
+            autoCompleteType="email"
+            returnKeyType="go"
+            returnKeyLabel="go"
+            onSubmitEditing={handleSubmit}
+          />
+        </Box>
 
-          <Box alignItems="center" marginTop="m">
-            <Button
-              variant="primary"
-              onPress={() => handleSubmit()}
-              label="Reset Password"
-            />
-          </Box>
+        <Box alignItems="center" marginTop="m">
+          <Button
+            variant="primary"
+            onPress={() => handleSubmit()}
+            label="Reset Password"
+          />
         </Box>
       </Box>
     </Container>

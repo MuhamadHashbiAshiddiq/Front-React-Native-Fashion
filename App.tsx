@@ -30,7 +30,9 @@ export default function App() {
       <LoadAssets {...{ fonts, assets }}>
         <SafeAreaProvider>
           <AppStack.Navigator
-            screenOptions={{ headerShown: false }}
+            screenOptions={{
+              headerShown: false,
+            }}
           >
             <AppStack.Screen
               name="Authentication"
