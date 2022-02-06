@@ -11,6 +11,9 @@ export { assets } from "./Drawer";
 const Drawer = createDrawerNavigator<HomeRoutes>();
 export const HomeNavigator = () => (
   <Drawer.Navigator
+    screenOptions={{
+      headerShown: false,
+    }}
     drawerContent={() => <DrawerContent />}
     drawerStyle={{ width: DRAWER_WIDTH }}
   >

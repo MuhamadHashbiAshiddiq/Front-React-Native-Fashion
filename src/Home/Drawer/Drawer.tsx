@@ -11,6 +11,7 @@ import {
   RoundedIconButton,
   Header,
 } from "../../components";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
 
 export const assets = [require("./assets/drawer.png")];
 
@@ -59,6 +60,7 @@ const items: DrawerItemProps[] = [
 ];
 
 const Drawer = () => {
+  const navigation = useNavigation();
   const theme = useTheme();
   return (
     <Box flex={1}>
@@ -74,12 +76,19 @@ const Drawer = () => {
           backgroundColor="secondary"
         >
           <Header
-            title="menu"
-            left={{ icon: "x", onPress: () => true }}
+            title="Menu"
+            left={{
+              icon: "x",
+              onPress: () =>
+                navigation.dispatch(
+                  DrawerActions.closeDrawer()
+                ),
+            }}
             right={{
               icon: "shopping-bag",
               onPress: () => true,
             }}
+            dark
           />
         </Box>
       </Box>
