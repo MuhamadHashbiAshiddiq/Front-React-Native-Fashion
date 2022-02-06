@@ -2,9 +2,11 @@ import * as React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import OutfitIdeas from "./OutfitIdeas";
-import DrawerContent, { DRAWER_WIDTH } from "./Drawer/Drawer";
+import DrawerContent, { DRAWER_WIDTH } from "./Drawer";
 
 import { HomeRoutes } from "../components/Navigation";
+
+export { assets } from "./Drawer";
 
 const Drawer = createDrawerNavigator<HomeRoutes>();
 export const HomeNavigator = () => (

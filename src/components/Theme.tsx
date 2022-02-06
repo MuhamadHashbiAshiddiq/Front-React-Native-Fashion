@@ -72,6 +72,12 @@ export const theme = {
       color: "text",
       textAlign: "center",
     },
+    header: {
+      fontSize: 12,
+      lineHeight: 24,
+      fontFamily: "SFProDisplay-Semibold",
+      color: "secondary",
+    },
   },
   breakpoints: {},
 };
