@@ -26,6 +26,7 @@ export const theme = {
     orange: "#FE5E33",
     pink: "#FF87A2",
     yellow: "#FFC641",
+    lightBlue: "#BFEAF5",
   },
 
   spacing: {
