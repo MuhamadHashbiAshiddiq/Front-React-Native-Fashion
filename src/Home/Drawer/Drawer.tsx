@@ -11,7 +11,10 @@ import {
   RoundedIconButton,
   Header,
 } from "../../components";
-import { DrawerActions, useNavigation } from "@react-navigation/native";
+import {
+  DrawerActions,
+  useNavigation,
+} from "@react-navigation/native";
 
 export const assets = [require("./assets/drawer.png")];
 
@@ -124,7 +127,7 @@ const Drawer = () => {
             </Text>
           </Box>
           {items.map((item) => (
-            <DrawerItem key={item.screen} {...item} />
+            <DrawerItem key={item.icon} {...item} />
           ))}
         </Box>
       </Box>

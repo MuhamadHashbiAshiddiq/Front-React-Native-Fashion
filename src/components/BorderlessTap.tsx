@@ -29,7 +29,7 @@ interface BorderTapProps {
   children: ReactNode;
 }
 
-const BorderTap = ({
+const BorderlessTap = ({
   children,
   onPress,
 }: BorderTapProps) => {
@@ -73,4 +73,4 @@ const BorderTap = ({
   );
 };
 
-export default BorderTap;
+export default BorderlessTap;
