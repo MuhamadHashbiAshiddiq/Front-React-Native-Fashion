@@ -4,6 +4,7 @@ import { sub } from "react-native-reanimated";
 
 import Background from "./Background";
 import Card from "./Card";
+import Categories from "./Categories";
 
 import { Box, Header } from "../../components";
 import { HomeNavigationProps } from "../../components/Navigation";
@@ -48,6 +49,7 @@ const OutfitIdeas = ({
           onPress: () => true,
         }}
       />
+      <Categories />
       <Box flex={1}>
         <Background />
         {cards.map(
