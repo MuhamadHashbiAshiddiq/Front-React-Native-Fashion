@@ -19,14 +19,15 @@ export interface DataPoint {
 
 interface GraphProps {
   data: DataPoint[];
-  minDate: number;
-  maxDate: number;
+  numberOfMonths: number;
+  startDate: number;
 }
 
-const Graph = ({ data, minDate, maxDate }: GraphProps) => {
-  const numberOfMonths = new Date(
-    maxDate - minDate
-  ).getMonth();
+const Graph = ({
+  data,
+  startDate,
+  numberOfMonths,
+}: GraphProps) => {
   const theme = useTheme();
   const canvasWidth = wWidth - theme.spacing.m * 2;
   const canvasHeight = canvasWidth * aspectRatio;
@@ -47,19 +48,16 @@ const Graph = ({ data, minDate, maxDate }: GraphProps) => {
       <Underlay
         minY={minY}
         maxY={maxY}
-        minX={minDate}
-        maxX={maxDate}
-        dates={dates}
+        startDate={startDate}
+        numberOfMonths={numberOfMonths}
         step={step}
       />
       <Box width={width} height={height}>
         {data.map((point) => {
+          // TODO fix this
           const i = new Date(
-            point.date - minDate
+            point.date - startDate
           ).getMonth();
-          if (point.value === 0) {
-            return null;
-          }
           return (
             <Box
               key={point.id}
