@@ -12,28 +12,45 @@ import {
 import { RoundedIcon } from "../../components";
 import { HomeRoutes } from "../../components/Navigation";
 
-export interface DrawerItemProps {
+interface BaseDrawerItem {
   icon: string;
   label: string;
-  screen: keyof HomeRoutes;
   color: keyof Theme["colors"];
 }
+
+interface ScreenDrawerItem extends BaseDrawerItem {
+  screen: keyof HomeRoutes;
+}
+
+interface OnPressDrawerItem extends BaseDrawerItem {
+  onPress: (
+    navigation: ReturnType<typeof useNavigation>
+  ) => void;
+}
+
+export type DrawerItemProps =
+  | ScreenDrawerItem
+  | OnPressDrawerItem;
 
 const DrawerItem = ({
   icon,
   color,
-  screen,
   label,
+  ...props
 }: DrawerItemProps) => {
   const theme = useTheme();
-  const { navigate } =
+  const navigation =
     useNavigation<
       DrawerNavigationProp<HomeRoutes, "OutfitIdeas">
     >();
 
   return (
     <RectButton
-      onPress={() => navigate(screen)}
+      onPress={() =>
+        props.screen
+          ? navigation.navigate(props.screen)
+          : props.onPress(navigation)
+      }
       style={{ borderRadius: theme.borderRadii.m }}
     >
       <Box

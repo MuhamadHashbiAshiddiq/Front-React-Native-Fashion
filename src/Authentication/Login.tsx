@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { TextInput as RNTextInput } from "react-native";
 import { useFormik } from "formik";
 import { BorderlessButton } from "react-native-gesture-handler";
-import { CompositeNavigationProp } from "@react-navigation/native";
+import { CommonActions, CompositeNavigationProp } from "@react-navigation/native";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { StackNavigationProp } from "@react-navigation/stack";
 
@@ -47,7 +47,13 @@ const Login = ({
       password: "",
       remember: false,
     },
-    onSubmit: () => navigation.navigate("Home"),
+    onSubmit: () =>
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "Home" }],
+        })
+      ),
   });
 
   const password = useRef<RNTextInput>(null);

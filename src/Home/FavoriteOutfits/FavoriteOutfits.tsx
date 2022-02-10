@@ -71,10 +71,8 @@ const FavoritesOutfits = ({
 }: HomeNavigationProps<"FavoriteOutfits">) => {
   const transition = (
     <Transition.Together>
-      <Transition.Change
-        interpolation="easeInOut"
-        durationMs={1000}
-      />
+      <Transition.Out type="fade" />
+      <Transition.In type="fade" />
     </Transition.Together>
   );
   const list = useRef<TransitioningView>(null);
@@ -111,7 +109,7 @@ const FavoritesOutfits = ({
             <Box flexDirection="row">
               <Box marginRight="m">
                 {outfits
-                  .filter(({ id }) => id % 2 !== 0)
+                  .filter((_, i) => i % 2 !== 0)
                   .map((outfit) => (
                     <Outfit
                       key={outfit.id}
@@ -122,7 +120,7 @@ const FavoritesOutfits = ({
               </Box>
               <Box>
                 {outfits
-                  .filter(({ id }) => id % 2 === 0)
+                  .filter((_, i) => i % 2 === 0)
                   .map((outfit) => (
                     <Outfit
                       key={outfit.id}

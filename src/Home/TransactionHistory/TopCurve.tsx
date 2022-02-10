@@ -48,7 +48,7 @@ const TopCurve = ({ footerHeight }: TopCurveProps) => {
         cx={0.5}
         cy={0.5}
         r={0.5}
-        fill={theme.colors.danger}
+        fill={theme.colors.orange}
         clipPath="url(#clip)"
       />
     </Svg>
