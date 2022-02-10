@@ -1,24 +1,51 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import {
+  ScrollView,
+  Image,
+  StyleSheet,
+  Dimensions,
+  PixelRatio,
+} from "react-native";
 
 import Graph, { DataPoint } from "./Graph/Graph";
 import Transaction from "./Transaction";
+import TopCurve from "./TopCurve";
 
-import { Box, Header, Text } from "../../components";
+import {
+  Box,
+  Header,
+  Text,
+  makeStyles,
+} from "../../components";
 import { HomeNavigationProps } from "../../components/Navigation";
+import { Theme } from "../../components/Theme";
+
+const footerHeight = Dimensions.get("window").width / 3;
+
+const useStyles = makeStyles((theme: Theme) => ({
+  footer: {
+    ...StyleSheet.absoluteFillObject,
+    width: undefined,
+    height: undefined,
+    borderTopLeftRadius: theme.borderRadii.xl,
+  },
+  scrollView: {
+    paddingBottom: footerHeight,
+  },
+}));
 
 const startDate = new Date("2021-08-01").getTime();
 const numberOfMonths = 6;
 
 const data: DataPoint[] = [
   {
-    date: new Date("2021-10-29").getTime(),
+    date: new Date("2021-10-10").getTime(),
     value: 139.42,
     color: "orange",
     id: 245674,
   },
   {
-    date: new Date("2021-11-24").getTime(),
+    date: new Date("2021-11-15").getTime(),
     value: 281.23,
     color: "yellow",
     id: 245675,
@@ -34,6 +61,7 @@ const data: DataPoint[] = [
 const TransactionHistory = ({
   navigation,
 }: HomeNavigationProps<"TransactionHistory">) => {
+  const styles = useStyles();
   return (
     <Box flex={1} backgroundColor="white">
       <Header
@@ -59,7 +87,7 @@ const TransactionHistory = ({
               color="secondary"
               opacity={0.3}
             >
-              Total Spent
+              TOTAL SPENT
             </Text>
             <Text variant="title1">$619.19</Text>
           </Box>
@@ -74,9 +102,11 @@ const TransactionHistory = ({
         <Graph
           data={data}
           startDate={startDate}
-          numberOfMonths={6}
+          numberOfMonths={numberOfMonths}
         />
-        <ScrollView>
+        <ScrollView
+          contentContainerStyle={styles.scrollView}
+        >
           {data.map((transaction, index) => (
             <Transaction
               key={index}
@@ -84,6 +114,19 @@ const TransactionHistory = ({
             />
           ))}
         </ScrollView>
+      </Box>
+      <TopCurve {...{ footerHeight }} />
+      <Box
+        position="absolute"
+        left={0}
+        right={0}
+        bottom={0}
+        height={footerHeight}
+      >
+        <Image
+          style={styles.footer}
+          source={require("../../components/assets/patterns/patterns3.png")}
+        />
       </Box>
     </Box>
   );

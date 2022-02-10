@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 import { Box, Text } from "../../components";
 
@@ -35,9 +36,9 @@ const Transaction = ({ transaction }: TransactionProps) => {
         </Box>
         <Text color="darkGrey">{`#${
           transaction.value
-        } - ${new Date(
-          transaction.date
-        ).toLocaleDateString()}`}</Text>
+        } - ${moment(transaction.date).format(
+          "DD MMMM, YYYY"
+        )}`}</Text>
       </Box>
       <Box>
         <Text color="secondary" variant="button">
