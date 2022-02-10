@@ -24,7 +24,7 @@ const Header = ({
   dark,
 }: HeaderProps) => {
   const insets = useSafeAreaInsets();
-  const color = dark ? "white" : "secondary";
+  const color = dark ? "background" : "secondary";
   const backgroundColor = dark ? "secondary" : "lightGrey";
 
   return (

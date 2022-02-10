@@ -30,9 +30,9 @@ const Checkbox = ({
           alignItems="center"
           borderWidth={1}
           borderColor="primary"
-          backgroundColor={checked ? "primary" : "white"}
+          backgroundColor={checked ? "primary" : "background"}
         >
-          <Icon name="check" color="white" />
+          <Icon name="check" color="background" />
         </Box>
         <Text variant="button">{label}</Text>
       </Box>

@@ -23,7 +23,7 @@ const Button = ({
       : theme.colors.grey;
   const color =
     variant === "primary"
-      ? theme.colors.white
+      ? theme.colors.background
       : theme.colors.button;
   return (
     <RectButton

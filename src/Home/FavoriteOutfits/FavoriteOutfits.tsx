@@ -82,7 +82,7 @@ const FavoritesOutfits = ({
   const [footerHeight, setFooterHeight] = useState(0);
 
   return (
-    <Box flex={1} backgroundColor="white">
+    <Box flex={1} backgroundColor="background">
       <Header
         title="Favorite Outfits"
         left={{

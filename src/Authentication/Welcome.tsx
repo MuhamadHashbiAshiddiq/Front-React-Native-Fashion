@@ -26,7 +26,7 @@ const Welcome = ({
 }: AuthNavigationProps<"Welcome">) => {
   const theme = useTheme();
   return (
-    <Box flex={1} backgroundColor="white">
+    <Box flex={1} backgroundColor="background">
       <Box
         flex={1}
         // @ts-ignore: Object is possibly 'undefined'.
@@ -56,7 +56,7 @@ const Welcome = ({
           bottom={0}
         />
         <Box
-          backgroundColor="white"
+          backgroundColor="background"
           borderTopLeftRadius="xl"
           justifyContent="space-evenly"
           alignItems="center"

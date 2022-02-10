@@ -21,7 +21,7 @@ const Transaction = ({ transaction }: TransactionProps) => {
         <Box
           flexDirection="row"
           alignItems="center"
-          marginBootstrap="s"
+          marginBottom="s"
         >
           <Box
             backgroundColor={transaction.color}

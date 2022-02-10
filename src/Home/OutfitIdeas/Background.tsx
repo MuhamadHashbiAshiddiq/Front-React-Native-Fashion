@@ -11,13 +11,13 @@ const Background = () => {
       <Box flex={1 / 3} backgroundColor="lightBlue">
         <Box
           flex={1}
-          backgroundColor="white"
+          backgroundColor="background"
           borderBottomRightRadius="xl"
         />
       </Box>
 
       <Box flex={1 / 3}>
-        <Box flex={1} backgroundColor="white" />
+        <Box flex={1} backgroundColor="background" />
         <Box flex={1} backgroundColor="secondary" />
         <Image
           source={require("./assets/background.png")}

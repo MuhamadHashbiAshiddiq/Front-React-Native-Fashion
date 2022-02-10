@@ -63,7 +63,7 @@ const DrawerItem = ({
           name={icon}
           size={36}
           backgroundColor={color}
-          color={"white"}
+          color={"background"}
         />
         <Text
           variant="button"

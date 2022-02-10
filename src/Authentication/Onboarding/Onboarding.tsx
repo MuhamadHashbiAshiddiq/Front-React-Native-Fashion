@@ -205,7 +205,7 @@ const Onboarding = ({
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "background",
   },
 
   underlay: {
@@ -227,7 +227,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   footerContent: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "background",
     borderTopLeftRadius: theme.borderRadii.xl,
   },
 
