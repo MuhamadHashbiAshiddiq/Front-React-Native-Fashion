@@ -1,1 +1,1 @@
-export { default } from "./TransactionHistory";
+export { default, DataPoint } from "./TransactionHistory";
