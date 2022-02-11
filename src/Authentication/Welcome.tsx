@@ -31,7 +31,7 @@ const Welcome = ({
         flex={1}
         // @ts-ignore: Object is possibly 'undefined'.
         borderBottomRightRadius="xl"
-        backgroundColor="grey"
+        backgroundColor="background2"
         alignItems="center"
         justifyContent="flex-end"
       >
@@ -48,7 +48,7 @@ const Welcome = ({
       </Box>
       <Box flex={1} borderTopLeftRadius="xl">
         <Box
-          backgroundColor="grey"
+          backgroundColor="background2"
           position="absolute"
           top={0}
           left={0}

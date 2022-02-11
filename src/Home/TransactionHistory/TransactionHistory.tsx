@@ -41,19 +41,19 @@ const data: DataPoint[] = [
   {
     date: new Date("2021-10-10").getTime(),
     value: 139.42,
-    color: "orange",
+    color: "primary",
     id: 245674,
   },
   {
     date: new Date("2021-11-15").getTime(),
     value: 281.23,
-    color: "yellow",
+    color: "graph1",
     id: 245675,
   },
   {
     date: new Date("2022-01-08").getTime(),
     value: 198.54,
-    color: "danger",
+    color: "graph2",
     id: 245676,
   },
 ];

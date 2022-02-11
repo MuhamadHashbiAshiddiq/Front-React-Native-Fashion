@@ -55,14 +55,14 @@ const Underlay = ({
                 width={theme.spacing[MARGIN]}
                 paddingRight="s"
               >
-                <Text color="darkGrey" textAlign="right">
+                <Text color="info" textAlign="right">
                   {Math.round(lerp(minY, maxY, t))}
                 </Text>
               </Box>
               <Box
                 flex={1}
                 height={1}
-                backgroundColor="grey"
+                backgroundColor="background2"
               />
             </Box>
           );
@@ -81,7 +81,7 @@ const Underlay = ({
           )
           .map((date, index) => (
             <Box width={step} key={index}>
-              <Text color="darkGrey" textAlign="center">
+              <Text color="info" textAlign="center">
                 {date.format("MMM")}
               </Text>
             </Box>

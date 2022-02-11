@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useRef } from "react";
 import moment from "moment";
 import { Dimensions } from "react-native";
+import {
+  Transition,
+  Transitioning,
+  TransitioningView,
+} from "react-native-reanimated";
 
 import { useTheme, Box } from "../../../components";
 import { Theme } from "../../../components/Theme";
 
 import { lerp } from "./Scale";
 import Underlay, { MARGIN } from "./Underlay";
+import { useLayoutEffect } from "react";
 
 const { width: wWidth } = Dimensions.get("window");
 const aspectRatio = 195 / 305;
+const transition = (
+  <Transition.Together>
+    <Transition.In
+      type="slide-bottom"
+      duration={650}
+      interpolation="easeInOut"
+    />
+  </Transition.Together>
+);
 
 export interface DataPoint {
   date: number;
@@ -29,16 +44,20 @@ const Graph = ({
   startDate,
   numberOfMonths,
 }: GraphProps) => {
+  const ref = useRef<TransitioningView>(null);
   const theme = useTheme();
   const canvasWidth = wWidth - theme.spacing.m * 2;
   const canvasHeight = canvasWidth * aspectRatio;
-  const width = canvasWidth - theme.spacing.l;
-  const height = canvasHeight - theme.spacing.l;
+  const width = canvasWidth - theme.spacing[MARGIN];
+  const height = canvasHeight - theme.spacing[MARGIN];
   const step = width / numberOfMonths;
   const values = data.map((p) => p.value);
-  const dates = data.map((p) => p.date);
+  // const dates = data.map((p) => p.date);
   const minY = Math.min(...values);
   const maxY = Math.max(...values);
+  useLayoutEffect(() => {
+    ref.current?.animateNextTransition();
+  }, []);
 
   return (
     <Box
@@ -53,7 +72,11 @@ const Graph = ({
         numberOfMonths={numberOfMonths}
         step={step}
       />
-      <Box width={width} height={height}>
+      <Transitioning.View
+        style={{ width, height, overflow: "hidden" }}
+        ref={ref}
+        transition={transition}
+      >
         {data.map((point) => {
           const i = Math.round(
             moment
@@ -92,7 +115,7 @@ const Graph = ({
             </Box>
           );
         })}
-      </Box>
+      </Transitioning.View>
     </Box>
   );
 };

@@ -25,7 +25,7 @@ const Header = ({
 }: HeaderProps) => {
   const insets = useSafeAreaInsets();
   const color = dark ? "background" : "secondary";
-  const backgroundColor = dark ? "secondary" : "lightGrey";
+  const backgroundColor = dark ? "secondary" : undefined;
 
   return (
     <Box
@@ -50,6 +50,11 @@ const Header = ({
         iconRatio={0.4}
         name={right.icon}
         onPress={right.onPress}
+        align={
+          backgroundColor === undefined
+            ? "flex-end"
+            : "center"
+        }
         {...{ color, backgroundColor }}
       />
     </Box>

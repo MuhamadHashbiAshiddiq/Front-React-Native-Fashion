@@ -20,11 +20,11 @@ const Button = ({
   const backgroundColor =
     variant === "primary"
       ? theme.colors.primary
-      : theme.colors.grey;
+      : theme.colors.background2;
   const color =
     variant === "primary"
       ? theme.colors.background
-      : theme.colors.button;
+      : theme.colors.secondary;
   return (
     <RectButton
       style={[styles.container, { backgroundColor }]}
