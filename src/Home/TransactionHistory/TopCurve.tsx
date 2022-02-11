@@ -43,7 +43,7 @@ const TopCurve = ({ footerHeight }: TopCurveProps) => {
         y={0}
         width={1}
         height={1}
-        fill={palette.green}
+        fill={palette.lightBlue}
       />
       <Circle
         cx={0.5}

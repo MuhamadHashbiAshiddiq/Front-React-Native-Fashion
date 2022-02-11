@@ -2,6 +2,7 @@ import * as React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import DrawerContent, { DRAWER_WIDTH } from "./Drawer";
+import EditProfile from "./EditProfile";
 import OutfitIdeas from "./OutfitIdeas";
 import FavoriteOutfits from "./FavoriteOutfits";
 import TransactionHistory from "./TransactionHistory";
@@ -30,6 +31,10 @@ export const HomeNavigator = () => (
     <Drawer.Screen
       name="TransactionHistory"
       component={TransactionHistory}
+    />
+    <Drawer.Screen
+      name="EditProfile"
+      component={EditProfile}
     />
   </Drawer.Navigator>
 );

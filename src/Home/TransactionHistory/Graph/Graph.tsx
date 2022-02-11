@@ -1,30 +1,23 @@
-import React, { useRef } from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import moment from "moment";
-import { Dimensions } from "react-native";
-import {
-  Transition,
-  Transitioning,
-  TransitioningView,
+import { Dimensions, View } from "react-native";
+import Animated, {
+  divide,
+  multiply,
+  sub,
 } from "react-native-reanimated";
+import { useIsFocused } from "@react-navigation/native";
+import { useTransition } from "react-native-redash";
 
 import { useTheme, Box } from "../../../components";
 import { Theme } from "../../../components/Theme";
 
 import { lerp } from "./Scale";
 import Underlay, { MARGIN } from "./Underlay";
-import { useLayoutEffect } from "react";
 
 const { width: wWidth } = Dimensions.get("window");
 const aspectRatio = 195 / 305;
-const transition = (
-  <Transition.Together>
-    <Transition.In
-      type="slide-bottom"
-      duration={650}
-      interpolation="easeInOut"
-    />
-  </Transition.Together>
-);
+const AnimatedBox = Animated.createAnimatedComponent(Box);
 
 export interface DataPoint {
   date: number;
@@ -44,7 +37,10 @@ const Graph = ({
   startDate,
   numberOfMonths,
 }: GraphProps) => {
-  const ref = useRef<TransitioningView>(null);
+  const isFocused = useIsFocused();
+  const transition = useTransition(isFocused, {
+    duration: 650,
+  });
   const theme = useTheme();
   const canvasWidth = wWidth - theme.spacing.m * 2;
   const canvasHeight = canvasWidth * aspectRatio;
@@ -55,9 +51,6 @@ const Graph = ({
   // const dates = data.map((p) => p.date);
   const minY = Math.min(...values);
   const maxY = Math.max(...values);
-  useLayoutEffect(() => {
-    ref.current?.animateNextTransition();
-  }, []);
 
   return (
     <Box
@@ -72,25 +65,40 @@ const Graph = ({
         numberOfMonths={numberOfMonths}
         step={step}
       />
-      <Transitioning.View
-        style={{ width, height, overflow: "hidden" }}
-        ref={ref}
-        transition={transition}
-      >
+      <View style={{ width, height, overflow: "hidden" }}>
         {data.map((point) => {
           const i = Math.round(
             moment
               .duration(moment(point.date).diff(startDate))
               .asMonths()
           );
+          const totalHeight = lerp(
+            0,
+            height,
+            point.value / maxY
+          );
+          const currentHeight = multiply(
+            totalHeight,
+            transition
+          );
+          const translateY = divide(
+            sub(totalHeight, currentHeight),
+            2
+          );
           return (
-            <Box
+            <AnimatedBox
               key={point.id}
               position="absolute"
               left={i * step}
               bottom={0}
               width={step}
-              height={lerp(0, height, point.value / maxY)}
+              height={totalHeight}
+              style={{
+                transform: [
+                  { translateY },
+                  { scaleY: transition },
+                ],
+              }}
             >
               <Box
                 backgroundColor={point.color}
@@ -112,10 +120,10 @@ const Graph = ({
                 right={theme.spacing.m}
                 borderRadius="m"
               />
-            </Box>
+            </AnimatedBox>
           );
         })}
-      </Transitioning.View>
+      </View>
     </Box>
   );
 };
