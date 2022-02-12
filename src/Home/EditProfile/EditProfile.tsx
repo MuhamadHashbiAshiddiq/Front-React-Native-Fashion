@@ -20,7 +20,7 @@ const tabs = [
   { id: "info", title: "Personal Info" },
 ];
 
-const EditProfile = () => {
+const EditProfile = ({ navigation }) => {
   const theme = useTheme();
 
   return (
@@ -39,10 +39,7 @@ const EditProfile = () => {
             title="Edit Profile"
             left={{
               icon: "menu",
-              onPress: () =>
-                navigation.dispatch(
-                  DrawerActions.closeDrawer()
-                ),
+              onPress: () => navigation.openDrawer(),
             }}
             dark
           />
