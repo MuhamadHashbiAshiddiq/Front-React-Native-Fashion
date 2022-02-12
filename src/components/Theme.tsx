@@ -25,6 +25,7 @@ export const theme = {
   colors: {
     background: palette.white,
     primary: palette.green,
+    textContrast: palette.white,
 
     button: "#0C0D34",
     secondary: "#0C0D34",

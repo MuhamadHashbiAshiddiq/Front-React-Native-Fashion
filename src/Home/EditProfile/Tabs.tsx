@@ -1,4 +1,8 @@
-import React, { Children, useState } from "react";
+import React, {
+  Children,
+  ReactNode,
+  useState,
+} from "react";
 import Animated, {
   multiply,
 } from "react-native-reanimated";
@@ -17,6 +21,7 @@ interface Tab {
 
 interface TabsProps {
   tabs: Tab[];
+  children: ReactNode;
 }
 
 const Tabs = ({ tabs, children }: TabsProps) => {
