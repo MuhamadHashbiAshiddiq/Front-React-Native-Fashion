@@ -97,7 +97,7 @@ const Drawer = () => {
             }}
             right={{
               icon: "shopping-bag",
-              onPress: () => true,
+              onPress: () => navigation.navigate("Cart"),
             }}
             dark
           />
