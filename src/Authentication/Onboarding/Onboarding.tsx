@@ -160,9 +160,9 @@ const Onboarding = ({
           snapToInterval={width}
           decelerationRate="fast"
           showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={0.1}
           bounces={false}
           onScroll={onScroll}
-          scrollEventThrottle={16}
         >
           {slides.map(({ title, picture }, index) => (
             <Slide
@@ -207,7 +207,7 @@ const Onboarding = ({
                       if (last) {
                         navigation.navigate("Welcome");
                       } else {
-                        scroll.current?.getNode().scrollTo({
+                        scroll.current?.scrollTo({
                           x: width * (index + 1),
                           animated: true,
                         });
