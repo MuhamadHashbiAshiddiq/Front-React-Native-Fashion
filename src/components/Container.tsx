@@ -76,7 +76,6 @@ const Container = ({
           />
           <Box
             borderRadius="xl"
-            borderTopLeftRadius={0}
             backgroundColor="background"
             flex={1}
             justifyContent="center"

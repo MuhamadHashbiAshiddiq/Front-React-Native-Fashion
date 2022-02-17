@@ -8,6 +8,7 @@ import Svg, {
 } from "react-native-svg";
 
 import { useTheme } from "../../components";
+import { palette } from "../../components/Theme";
 
 interface TopCurveProps {
   footerHeight: number;
@@ -32,7 +33,7 @@ const TopCurve = ({ footerHeight }: TopCurveProps) => {
         <ClipPath id="clip">
           <Path
             d="M 0 1 A 0 0, 0, 0, 0, 1 0 L 1 1"
-            fill={theme.colors.lightBlue}
+            fill="black"
           />
         </ClipPath>
       </Defs>
@@ -42,13 +43,13 @@ const TopCurve = ({ footerHeight }: TopCurveProps) => {
         y={0}
         width={1}
         height={1}
-        fill={theme.colors.lightBlue}
+        fill={palette.lightBlue}
       />
       <Circle
         cx={0.5}
         cy={0.5}
         r={0.5}
-        fill={theme.colors.orange}
+        fill={palette.orange}
         clipPath="url(#clip)"
       />
     </Svg>
