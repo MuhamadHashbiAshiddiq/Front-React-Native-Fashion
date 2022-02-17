@@ -7,7 +7,7 @@ import Animated, {
   sub,
 } from "react-native-reanimated";
 import { useIsFocused } from "@react-navigation/native";
-import { useTransition } from "react-native-redash";
+import { useTiming } from "react-native-redash";
 
 import { useTheme, Box } from "../../../components";
 import { Theme } from "../../../components/Theme";
@@ -38,7 +38,7 @@ const Graph = ({
   numberOfMonths,
 }: GraphProps) => {
   const isFocused = useIsFocused();
-  const transition = useTransition(isFocused, {
+  const transition = useTiming(isFocused, {
     duration: 650,
   });
   const theme = useTheme();

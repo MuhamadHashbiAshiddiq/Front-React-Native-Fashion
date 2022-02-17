@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import { useTransition } from "react-native-redash";
-import { sub } from "react-native-reanimated";
+import { useTiming } from "react-native-redash";
+import {
+  sub,
+  useDerivedValue,
+} from "react-native-reanimated";
 
 import Background from "./Background";
 import Card from "./Card";
@@ -34,7 +37,7 @@ const OutfitIdeas = ({
   navigation,
 }: HomeNavigationProps<"OutfitIdeas">) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const aIndex = useTransition(currentIndex);
+  const aIndex = useTiming(currentIndex);
 
   return (
     <Box flex={1} backgroundColor="background">
@@ -57,11 +60,14 @@ const OutfitIdeas = ({
             currentIndex < index * step + step && (
               <Card
                 key={index}
-                position={sub(index * step, aIndex)}
+                index={index}
+                aIndex={aIndex}
+                step={step}
+                // position={sub(index * step, aIndex)}
                 onSwipe={() =>
                   setCurrentIndex((prev) => prev + step)
                 }
-                {...{ source, step }}
+                {...{ source }}
               />
             )
         )}

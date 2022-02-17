@@ -3,7 +3,10 @@ import * as Yup from "yup";
 import { TextInput as RNTextInput } from "react-native";
 import { useFormik } from "formik";
 import { BorderlessButton } from "react-native-gesture-handler";
-import { CommonActions, CompositeNavigationProp } from "@react-navigation/native";
+import {
+  CommonActions,
+  CompositeNavigationProp,
+} from "@react-navigation/native";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { StackNavigationProp } from "@react-navigation/stack";
 
@@ -101,7 +104,6 @@ const Login = ({
             }
           />
         </Box>
-
         <TextInput
           ref={password}
           icon="lock"
@@ -117,7 +119,6 @@ const Login = ({
           onSubmit={() => handleSubmit()}
           secureTextEntry
         />
-
         <Box
           flexDirection="row"
           justifyContent="space-between"
@@ -141,7 +142,6 @@ const Login = ({
             </Text>
           </BorderlessButton>
         </Box>
-
         <Box alignItems="center" marginTop="m">
           <Button
             variant="primary"
