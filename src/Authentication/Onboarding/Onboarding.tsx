@@ -26,10 +26,7 @@ import {
   ThemeContext,
   makeStyles,
 } from "../../components/Theme";
-import {
-  Routes,
-  StackNavigationProps,
-} from "../../components/Navigation";
+import { AuthenticationRoutes } from "../../components/Navigation";
 
 const { width } = Dimensions.get("window");
 
@@ -90,7 +87,7 @@ export const assets = slides.map(
 
 const Onboarding = ({
   navigation,
-}: StackNavigationProps<Routes, "Onboarding">) => {
+}: AuthNavigationProps<"Onboarding">) => {
   const styles = useStyles();
   const theme = useTheme();
   const scroll = useRef<Animated.ScrollView>(null);
@@ -208,7 +205,7 @@ const Onboarding = ({
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "background",
   },
 
   underlay: {
@@ -230,7 +227,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   footerContent: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "background",
     borderTopLeftRadius: theme.borderRadii.xl,
   },
 

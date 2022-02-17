@@ -1,26 +1,38 @@
+import React, { ReactNode } from "react";
 import {
   ViewStyle,
   TextStyle,
   ImageStyle,
 } from "react-native";
 import {
+  ThemeProvider as ReStyleThemeProvider,
   createBox,
   createText,
   useTheme as useReTheme,
 } from "@shopify/restyle";
 
+export const palette = {
+  white: "white",
+};
+
 export const theme = {
   colors: {
-    white: "white",
+    background: palette.white,
     button: "#0C0D34",
     primary: "#2CB9B0",
     secondary: "#0C0D34",
     title: "#0C0D34",
     text: "rgba(12, 13, 52, 0.7)",
-    grey: "rgba(12, 13, 52, 0.05)",
+    grey: "#F4F0EF",
+    lightGrey: "#F4FAFA",
     darkGrey: "#8A8D90",
     danger: "#FF0058",
-    primaryLight: "#E7F9F7"
+    primaryLight: "#E7F9F7",
+    violet: "#442CB9",
+    orange: "#FE5E33",
+    pink: "#FF87A2",
+    yellow: "#FFC641",
+    lightBlue: "#BFEAF5",
   },
 
   spacing: {
@@ -42,7 +54,7 @@ export const theme = {
       fontSize: 80,
       lineHeight: 80,
       fontFamily: "SFProDisplay-Bold",
-      color: "white",
+      color: "background",
       textAlign: "center",
     },
     title1: {
@@ -53,6 +65,11 @@ export const theme = {
     title2: {
       fontSize: 24,
       lineHeight: 30,
+      fontFamily: "SFProDisplay-Semibold",
+      color: "secondary",
+    },
+    title3: {
+      fontSize: 16,
       fontFamily: "SFProDisplay-Semibold",
       color: "secondary",
     },
@@ -68,9 +85,25 @@ export const theme = {
       color: "text",
       textAlign: "center",
     },
+    header: {
+      fontSize: 12,
+      lineHeight: 24,
+      fontFamily: "SFProDisplay-Semibold",
+      color: "secondary",
+    },
   },
   breakpoints: {},
 };
+
+export const ThemeProvider = ({
+  children,
+}: {
+  children: ReactNode;
+}) => (
+  <ReStyleThemeProvider {...{ theme }}>
+    {children}
+  </ReStyleThemeProvider>
+);
 
 export type Theme = typeof theme;
 export const Box = createBox<Theme>();

@@ -1,11 +1,9 @@
 import React from "react";
 import { Image, Dimensions } from "react-native";
+import { BorderlessButton } from "react-native-gesture-handler";
 
 import { Button } from "../components";
-import {
-  Routes,
-  StackNavigationProps,
-} from "../components/Navigation";
+import { AuthNavigationProps } from "../components/Navigation";
 import Container from "../components/Container";
 import theme, {
   Box,
@@ -25,10 +23,10 @@ export const assets = [picture.src];
 
 const Welcome = ({
   navigation,
-}: StackNavigationProps<Routes, "Welcome">) => {
+}: AuthNavigationProps<"Welcome">) => {
   const theme = useTheme();
   return (
-    <Box flex={1} backgroundColor="white">
+    <Box flex={1} backgroundColor="background">
       <Box
         flex={1}
         // @ts-ignore: Object is possibly 'undefined'.
@@ -58,7 +56,7 @@ const Welcome = ({
           bottom={0}
         />
         <Box
-          backgroundColor="white"
+          backgroundColor="background"
           borderTopLeftRadius="xl"
           justifyContent="space-evenly"
           alignItems="center"
@@ -77,13 +75,17 @@ const Welcome = ({
           />
           <Button
             label="Join us, it's Free"
-            onPress={() => true}
+            onPress={() => navigation.navigate("SignUp")}
           />
-          <Button
-            variant="transparent"
-            label="Forgot password?"
-            onPress={() => true}
-          />
+          <BorderlessButton
+            onPress={() =>
+              navigation.navigate("ForgotPassword")
+            }
+          >
+            <Text variant="button" color="secondary">
+              Forgot password?
+            </Text>
+          </BorderlessButton>
         </Box>
       </Box>
     </Box>

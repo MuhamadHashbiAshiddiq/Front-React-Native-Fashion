@@ -63,6 +63,7 @@ const LoadAssets = ({
     InitialState | undefined
   >();
   const ready = useLoadAssets(assets || [], fonts || {});
+  
   useEffect(() => {
     const restoreState = async () => {
       try {
@@ -82,6 +83,7 @@ const LoadAssets = ({
       restoreState();
     }
   }, [isNavigationReady]);
+ 
   const onStateChange = useCallback(
     (state) =>
       AsyncStorage.setItem(

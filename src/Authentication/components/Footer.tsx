@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableWithoutFeedback } from "react-native";
+import { BorderlessButton } from "react-native-gesture-handler";
 
 import SocialLogin from "./SocialLogin";
 
@@ -20,12 +20,12 @@ const Footer = ({
     <>
       <SocialLogin />
       <Box alignItems="center" marginTop="m">
-        <TouchableWithoutFeedback {...{ onPress }}>
-          <Text variant="button" color="white">
+        <BorderlessButton {...{ onPress }}>
+          <Text variant="button" color="background">
             <Text>{`${title}`}</Text>
             <Text color="primary">{action}</Text>
           </Text>
-        </TouchableWithoutFeedback>
+        </BorderlessButton>
       </Box>
     </>
   );

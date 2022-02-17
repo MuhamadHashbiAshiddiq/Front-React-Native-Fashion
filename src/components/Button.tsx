@@ -9,38 +9,30 @@ interface ButtonProps {
   variant: "default" | "primary" | "transparent";
   label: string;
   onPress: () => void;
-  children?: ReactNode;
 }
 
 const Button = ({
   variant,
   label,
-  children,
   onPress,
 }: ButtonProps) => {
   const theme = useTheme<Theme>();
   const backgroundColor =
     variant === "primary"
       ? theme.colors.primary
-      : variant === "transparent"
-      ? "transparent"
       : theme.colors.grey;
   const color =
     variant === "primary"
-      ? theme.colors.white
+      ? theme.colors.background
       : theme.colors.button;
   return (
     <RectButton
       style={[styles.container, { backgroundColor }]}
       {...{ onPress }}
     >
-      {children ? (
-        children
-      ) : (
-        <Text variant="button" style={{ color }}>
-          {label}
-        </Text>
-      )}
+      <Text variant="button" style={{ color }}>
+        {label}
+      </Text>
     </RectButton>
   );
 };

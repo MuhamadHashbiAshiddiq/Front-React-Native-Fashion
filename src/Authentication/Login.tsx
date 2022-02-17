@@ -1,21 +1,23 @@
 import React, { useRef } from "react";
-import { useFormik } from "formik";
 import * as Yup from "yup";
+import { TextInput as RNTextInput } from "react-native";
+import { useFormik } from "formik";
+import { BorderlessButton } from "react-native-gesture-handler";
+import { CommonActions, CompositeNavigationProp } from "@react-navigation/native";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-import TextInput from "./components/Form/TextInput";
-import Checkbox from "./components/Form/Checkbox";
 import Footer from "./components/Footer";
 
+import TextInput from "../components/Form/TextInput";
+import Checkbox from "../components/Form/Checkbox";
 import {
   Container,
   Button,
   Text,
   Box,
 } from "../components";
-import {
-  Routes,
-  StackNavigationProps,
-} from "../components/Navigation";
+import { AuthNavigationProps } from "../components/Navigation";
 
 const LoginSchema = Yup.object().shape({
   password: Yup.string()
@@ -29,7 +31,7 @@ const LoginSchema = Yup.object().shape({
 
 const Login = ({
   navigation,
-}: StackNavigationProps<Routes, "Login">) => {
+}: AuthNavigationProps<"Login">) => {
   const {
     handleChange,
     handleBlur,
@@ -45,10 +47,16 @@ const Login = ({
       password: "",
       remember: false,
     },
-    onSubmit: (values) => console.log(values),
+    onSubmit: () =>
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "Home" }],
+        })
+      ),
   });
 
-  const password = useRef<typeof TextInput>(null);
+  const password = useRef<RNTextInput>(null);
 
   const footer = (
     <Footer
@@ -59,87 +67,87 @@ const Login = ({
   );
 
   return (
-    <Container {...{ footer }}>
-      <Box padding="xl">
-        <Text
-          variant="title1"
-          textAlign="center"
-          marginBottom="l"
-        >
-          Welcome back
-        </Text>
-        <Text
-          variant="body"
-          textAlign="center"
-          marginBottom="l"
-        >
-          Use your credentials below and login to your
-          account
-        </Text>
+    <Container pattern={0} {...{ footer }}>
+      <Text
+        variant="title1"
+        textAlign="center"
+        marginBottom="l"
+      >
+        Welcome back
+      </Text>
+      <Text
+        variant="body"
+        textAlign="center"
+        marginBottom="l"
+      >
+        Use your credentials below and login to your account
+      </Text>
 
-        <Box>
-          <Box marginBottom="m">
-            <TextInput
-              icon="mail"
-              placeholder="Enter your email"
-              onChangeText={handleChange("email")}
-              onBlur={handleBlur("email")}
-              error={errors.email}
-              touched={touched.email}
-              autoCapitalize="none"
-              autoCompleteType="email"
-              returnKeyType="next"
-              returnKeyLabel="next"
-              onSubmitEditing={() =>
-                password.current?.focus()
-              }
-            />
-          </Box>
-
+      <Box>
+        <Box marginBottom="m">
           <TextInput
-            ref={password}
-            icon="lock"
-            placeholder="Enter your password"
-            onChangeText={handleChange("password")}
-            onBlur={handleBlur("password")}
-            error={errors.password}
-            touched={touched.password}
-            autoCompleteType="password"
+            icon="mail"
+            placeholder="Enter your email"
+            onChangeText={handleChange("email")}
+            onBlur={handleBlur("email")}
+            error={errors.email}
+            touched={touched.email}
             autoCapitalize="none"
-            returnKeyType="go"
-            returnKeyLabel="go"
-            onSubmit={() => handleSubmit()}
-            secureTextEntry
+            autoCompleteType="email"
+            returnKeyType="next"
+            returnKeyLabel="next"
+            onSubmitEditing={() =>
+              password.current?.focus()
+            }
           />
+        </Box>
 
-          <Box
-            flexDirection="row"
-            justifyContent="space-between"
+        <TextInput
+          ref={password}
+          icon="lock"
+          placeholder="Enter your password"
+          onChangeText={handleChange("password")}
+          onBlur={handleBlur("password")}
+          error={errors.password}
+          touched={touched.password}
+          autoCompleteType="password"
+          autoCapitalize="none"
+          returnKeyType="go"
+          returnKeyLabel="go"
+          onSubmit={() => handleSubmit()}
+          secureTextEntry
+        />
+
+        <Box
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+          marginVertical="s"
+        >
+          <Checkbox
+            label="Remember me"
+            checked={values.remember}
+            onChange={() =>
+              setFieldValue("remember", !values.remember)
+            }
+          />
+          <BorderlessButton
+            onPress={() =>
+              navigation.navigate("ForgotPassword")
+            }
           >
-            <Checkbox
-              label="Remember me"
-              checked={values.remember}
-              onChange={() =>
-                setFieldValue("remember", !values.remember)
-              }
-            />
-            <Button
-              variant="transparent"
-              onPress={() =>
-                navigation.navigate("ForgotPassword")
-              }
-            >
-              <Text color="primary">Forget Password?</Text>
-            </Button>
-          </Box>
+            <Text variant="button" color="primary">
+              Forget Password?
+            </Text>
+          </BorderlessButton>
+        </Box>
 
-          <Box alignItems="center" marginTop="m">
-            <Button
-              variant="primary"
-              onPress={handleSubmit}
-              label="Log into your account"
-            />
-          </Box>
+        <Box alignItems="center" marginTop="m">
+          <Button
+            variant="primary"
+            onPress={handleSubmit}
+            label="Log into your account"
+          />
         </Box>
       </Box>
     </Container>
