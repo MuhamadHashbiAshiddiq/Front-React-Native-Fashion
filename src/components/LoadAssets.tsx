@@ -12,6 +12,7 @@ import {
   InitialState,
   NavigationContainer,
 } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 
 const NAVIGATION_STATE_KEY = `NAVIGATION_STATE_KEY-${Constants.manifest.sdkVersion}`;
@@ -96,6 +97,7 @@ const LoadAssets = ({
     <NavigationContainer
       {...{ onStateChange, initialState }}
     >
+      <StatusBar />
       {children}
     </NavigationContainer>
   );
