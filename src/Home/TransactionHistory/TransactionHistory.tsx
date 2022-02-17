@@ -62,6 +62,7 @@ const TransactionHistory = ({
   navigation,
 }: HomeNavigationProps<"TransactionHistory">) => {
   const styles = useStyles();
+
   return (
     <ScrollableContent>
       <Box flex={1} backgroundColor="background">
