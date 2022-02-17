@@ -9,11 +9,13 @@ interface ButtonProps {
   variant: "default" | "primary" | "transparent";
   label: string;
   onPress: () => void;
+  children?: ReactNode;
 }
 
 const Button = ({
   variant,
   label,
+  children,
   onPress,
 }: ButtonProps) => {
   const theme = useTheme<Theme>();
@@ -32,9 +34,13 @@ const Button = ({
       style={[styles.container, { backgroundColor }]}
       {...{ onPress }}
     >
-      <Text variant="button" style={{ color }}>
-        {label}
-      </Text>
+      {children ? (
+        children
+      ) : (
+        <Text variant="button" style={{ color }}>
+          {label}
+        </Text>
+      )}
     </RectButton>
   );
 };
