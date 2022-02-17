@@ -9,9 +9,9 @@ import { lerp } from "./Scale";
 export const MARGIN = "xl";
 
 const ROW_HEIGHT = 16;
-const formatter = Intl.DateTimeFormat("en", {
-  month: "short",
-});
+// const formatter = Intl.DateTimeFormat("en", {
+//   month: "short",
+// });
 
 interface UnderlayProps {
   minY: number;
@@ -79,8 +79,8 @@ const Underlay = ({
           .map((_, i) =>
             moment(minDate.clone().add(i, "month"))
           )
-          .map((date, index) => (
-            <Box width={step} key={index}>
+          .map((date, i) => (
+            <Box key={i} width={step}>
               <Text color="info" textAlign="center">
                 {date.format("MMM")}
               </Text>
