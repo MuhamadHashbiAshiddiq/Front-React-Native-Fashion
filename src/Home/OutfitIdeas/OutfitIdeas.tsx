@@ -55,7 +55,7 @@ const OutfitIdeas = ({
       <Categories />
       <Box flex={1}>
         <Background />
-        {cards.map(
+        {/* {cards.map(
           ({ index, source }) =>
             currentIndex < index * step + step && (
               <Card
@@ -70,7 +70,7 @@ const OutfitIdeas = ({
                 {...{ source }}
               />
             )
-        )}
+        )} */}
       </Box>
     </Box>
   );
