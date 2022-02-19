@@ -103,7 +103,7 @@ const Card = ({
         { scale },
       ],
       backgroundColor: mixColor(
-        position,
+        position.value,
         "#C9E9E7",
         "#74BCB8"
       ),

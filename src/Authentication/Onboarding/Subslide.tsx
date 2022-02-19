@@ -1,7 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
-import Animated from "react-native-reanimated";
-
+import { StyleSheet, View } from "react-native";
 import { Button, Text } from "../../components";
 
 interface SubslideProps {
@@ -11,12 +9,7 @@ interface SubslideProps {
   onPress: () => void;
 }
 
-const Subslide = ({
-  subtitle,
-  description,
-  last,
-  onPress,
-}: SubslideProps) => {
+const Subslide = ({ subtitle, description, last, onPress }: SubslideProps) => {
   return (
     <View style={styles.container}>
       <Text variant="title2" style={styles.subtitle}>

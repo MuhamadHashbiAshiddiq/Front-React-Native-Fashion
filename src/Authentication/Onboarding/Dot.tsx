@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import Animated, {
   Extrapolate,
   interpolate,
@@ -8,20 +8,22 @@ import Animated, {
 
 interface DotProps {
   index: number;
-  currentIndex: Animated.SharedValue<number>;
+  scrollOffset: Animated.SharedValue<number>;
 }
 
-const Dot = ({ index, currentIndex }: DotProps) => {
-  const style = useAnimatedStyle(() => {
+const { width } = Dimensions.get("window");
+
+const Dot = ({ index, scrollOffset }: DotProps) => {
+  const DotStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
-      currentIndex.value,
+      scrollOffset.value / width,
       [index - 1, index, index + 1],
       [0.5, 1, 0.5],
       Extrapolate.CLAMP
     );
 
     const scale = interpolate(
-      currentIndex.value,
+      scrollOffset.value / width,
       [index - 1, index, index + 1],
       [1, 1.25, 1],
       Extrapolate.CLAMP
@@ -29,16 +31,21 @@ const Dot = ({ index, currentIndex }: DotProps) => {
 
     return {
       opacity,
-      backgroundColor: "#2CB9B0",
-      width: 8,
-      height: 8,
-      borderRadius: 4,
-      margin: 4,
       transform: [{ scale }],
     };
   });
 
-  return <Animated.View style={style} />;
+  return <Animated.View style={[styles.dot, DotStyle]} />;
 };
+
+const styles = StyleSheet.create({
+  dot: {
+    backgroundColor: "#2CB9B0",
+    width: 6,
+    height: 6,
+    borderRadius: 4,
+    marginRight: 8,
+  },
+});
 
 export default Dot;

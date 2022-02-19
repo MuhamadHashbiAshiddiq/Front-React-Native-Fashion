@@ -25,7 +25,7 @@ const Slide = ({ title, right }: SlideProps) => {
   return (
     <View style={styles.container}>
       <View style={[styles.titleContainer, { transform }]}>
-        <Text variant="hero">{title}</Text>
+        <Text style={styles.title}>{title}</Text>
       </View>
     </View>
   );
@@ -39,6 +39,14 @@ const styles = StyleSheet.create({
   titleContainer: {
     height: 100,
     justifyContent: "center",
+  },
+  
+  title: {
+    fontSize: 80,
+    lineHeight: 80,
+    fontFamily: "SFProDisplay-Bold",
+    color: "white",
+    textAlign: "center",
   },
 });
 
