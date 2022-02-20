@@ -3,6 +3,7 @@ import {
   ViewStyle,
   TextStyle,
   ImageStyle,
+  Dimensions,
 } from "react-native";
 import {
   ThemeProvider as ReStyleThemeProvider,
@@ -10,6 +11,9 @@ import {
   createText,
   useTheme as useReTheme,
 } from "@shopify/restyle";
+
+const { width } = Dimensions.get("window");
+export const aspectRatio = width / 375;
 
 export const palette = {
   green: "#2CB9B0",
