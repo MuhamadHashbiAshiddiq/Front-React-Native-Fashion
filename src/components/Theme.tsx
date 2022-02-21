@@ -40,6 +40,8 @@ export const theme = {
     danger: "#FF0058",
     primaryLight: "#E7F9F7",
 
+    edit: palette.lightBlue,
+
     graph1: palette.orange,
     graph2: palette.yellow,
 
