@@ -13,6 +13,7 @@ import { HomeNavigationProps } from "../../components/Navigation";
 import { aspectRatio } from "../../components/Theme";
 
 import CartContainer from "./CartContainer";
+import Checkout from "./Checkout";
 import Item from "./Item";
 
 const { width } = Dimensions.get("window");
@@ -34,7 +35,7 @@ const Cart = ({
   const theme = useTheme();
 
   return (
-    <CartContainer>
+    <CartContainer CheckoutComponent={Checkout}>
       <Box>
         <Box backgroundColor="primary">
           <Header
