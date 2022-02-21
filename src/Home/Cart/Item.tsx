@@ -1,7 +1,11 @@
 import React from "react";
 
 import { Box } from "../../components";
-import { palette, Text } from "../../components/Theme";
+import {
+  palette,
+  Text,
+  useTheme,
+} from "../../components/Theme";
 
 import SwipeAbleRow from "./SwipeAbleRow";
 
@@ -10,8 +14,11 @@ interface ItemsProps {
 }
 
 const Item = ({ onDelete }: ItemProps) => {
+  const theme = useTheme();
+  const height = 120 + theme.spacing.m * 2;
+
   return (
-    <SwipeAbleRow onDelete={onDelete}>
+    <SwipeAbleRow onDelete={onDelete} height={height}>
       <Box padding="m" flexDirection="row">
         <Box
           width={120}
