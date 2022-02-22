@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import {
+  Dimensions,
+  StyleSheet,
+  View,
+  ScrollView,
+} from "react-native";
 import Svg, { Path } from "react-native-svg";
 
 import {
@@ -36,19 +40,16 @@ const Cart = ({
 
   return (
     <CartContainer CheckoutComponent={Checkout}>
-      <Box>
-        <Box backgroundColor="primary">
-          <Header
-            dark
-            left={{
-              icon: "arrow-left",
-              onPress: () => navigation.goBack(),
-            }}
-            title="Shopping Cart"
-          />
-        </Box>
+      <Box backgroundColor="primary">
+        <Header
+          dark
+          left={{
+            icon: "arrow-left",
+            onPress: () => navigation.goBack(),
+          }}
+          title="Shopping Cart"
+        />
       </Box>
-
       <Box flex={1}>
         <ScrollView
           style={{
@@ -70,30 +71,29 @@ const Cart = ({
             />
           ))}
         </ScrollView>
-      </Box>
-
-      <Box
-        style={{
-          position: "absolute",
-          top: height / 1.4,
-          left: 0,
-          right: 0,
-          height,
-        }}
-      >
-        <Svg
-          style={StyleSheet.absoluteFill}
-          viewBox="0 0 375 100"
+        <Box
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height,
+          }}
         >
-          <Path d={d} fill={theme.colors.primary} />
-        </Svg>
-        <Text
-          variant="title2"
-          textAlign="center"
-          color="background"
-        >
-          3 Items Added
-        </Text>
+          <Svg
+            style={StyleSheet.absoluteFill}
+            viewBox="0 0 375 100"
+          >
+            <Path d={d} fill={theme.colors.primary} />
+          </Svg>
+          <Text
+            variant="title2"
+            textAlign="center"
+            color="background"
+          >
+            3 Items Added
+          </Text>
+        </Box>
       </Box>
     </CartContainer>
   );

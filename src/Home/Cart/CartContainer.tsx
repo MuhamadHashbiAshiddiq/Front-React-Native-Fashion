@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import { Dimensions, View } from "react-native";
 import {
   PanGestureHandler,
@@ -75,6 +75,7 @@ const CartContainer = ({
             backgroundColor: "white",
             borderBottomLeftRadius: theme.borderRadii.xl,
             borderBottomRightRadius: theme.borderRadii.xl,
+            paddingBottom: theme.spacing.xl
           },
           style,
         ]}
@@ -95,8 +96,8 @@ const CartContainer = ({
             <View
               style={{
                 height: 5 * aspectRatio,
-                backgroundColor: theme.colors.background2,
-                width: 100 * aspectRatio,
+                backgroundColor: theme.colors.grey,
+                width: 60 * aspectRatio,
                 borderRadius: 2.5,
                 marginBottom: theme.spacing.s,
               }}

@@ -6,6 +6,7 @@ import React, {
 import { Dimensions, StyleSheet, View } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated, {
+  runOnJS,
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
@@ -38,13 +39,13 @@ const SwipeAbleRow = ({
   onDelete,
   height: defaultHeight,
 }: SwipeAbleRowProps) => {
-  const height = useSharedValue(0);
-  const deleteItem = useCallback(() => {
-    ref.current?.animateNextTransition();
-    onDelete();
-  }, [onDelete]);
   const theme = useTheme();
   const translateX = useSharedValue(0);
+  const height = useSharedValue(0);
+  const deleteItem = useCallback(() => {
+    // ref.current?.animateNextTransition();
+    onDelete();
+  }, [onDelete]);
 
   const onGestureEvent = useAnimatedGestureHandler<{
     x: number;
@@ -61,21 +62,15 @@ const SwipeAbleRow = ({
         velocityX,
         snapPoints
       );
-      translateX.value = withSpring(
-        dest,
-        {
-          overshootClamping: true,
-        },
-        () => {
-          if (dest === finalDestination) {
-            height.value = withTiming(
-              0,
-              { duration: 250 },
-              () => deleteItem()
-            );
-          }
+      translateX.value = withSpring(dest, {}, () => {
+        if (dest === finalDestination) {
+          height.value = withTiming(
+            0,
+            { duration: 250 },
+            () => runOnJS(onDelete)()
+          );
         }
-      );
+      });
     },
   });
 
@@ -107,17 +102,19 @@ const SwipeAbleRow = ({
           start={[0, 0.5]}
           end={[1, 0.5]}
         />
+
+        <Box
+          justifyContent="space-evenly"
+          width={editWidth}
+          alignItems="center"
+          flex={1}
+        >
+          <Text color="background" variant="header">
+            Delete
+          </Text>
+        </Box>
       </Animated.View>
-      <Box
-        justifyContent="space-evenly"
-        width={editWidth}
-        alignItems="center"
-        flex={1}
-      >
-        <Text color="background" variant="header">
-          Delete
-        </Text>
-      </Box>
+      
       <Animated.View
         style={[StyleSheet.absoluteFill, editStyle]}
       >

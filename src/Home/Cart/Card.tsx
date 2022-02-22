@@ -1,10 +1,8 @@
 import React from "react";
-import { View } from "react-native";
+import { Image, View } from "react-native";
 import { BorderlessButton } from "react-native-gesture-handler";
-import { Image } from "react-native-svg";
-import { Box } from "../../components";
+import { Box, Text } from "../../components";
 import CardLayout from "./CardLayout";
-
 
 export enum CardType {
   VISA,
@@ -33,18 +31,35 @@ const Card = ({ card, selected, onSelect }: CardProps) => {
       onPress={onSelect}
       backgroundColor={selected ? "primary" : "background"}
     >
-      <Image
-        style={
-          card.type === CardType.VISA
-            ? { width: 39, height: 13 }
-            : { width: 32.5, height: 20 }
-        }
-        source={
-          card.type === CardType.VISA
-            ? visaLogo
-            : mastercardLogo
-        }
-      />
+      <View style={{ height: 20 }}>
+        <Image
+          style={
+            card.type === CardType.VISA
+              ? { width: 39, height: 13 }
+              : { width: 32.5, height: 20 }
+          }
+          source={
+            card.type === CardType.VISA
+              ? visaLogo
+              : mastercardLogo
+          }
+        />
+      </View>
+      <Text
+        variant="title3"
+        marginTop="m"
+        marginBottom="s"
+        color={selected ? "background" : "secondary"}
+      >
+        **** {card.last4digits}
+      </Text>
+      <Text opacity={0.5}>Expiration</Text>
+      <Text
+        opacity={0.5}
+        color={selected ? "background" : "secondary"}
+      >
+        {card.expirationDate}
+      </Text>
     </CardLayout>
   );
 };

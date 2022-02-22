@@ -24,7 +24,7 @@ const CardLayout = ({
         marginLeft="m"
         borderRadius="m"
         width={120}
-        height={CARD_HEIGHT}
+        height={120}
         backgroundColor={backgroundColor}
       >
         {children}

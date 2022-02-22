@@ -61,62 +61,60 @@ const Checkout = ({ minHeight }: CheckoutProps) => {
       style={{ paddingTop: minHeight }}
     >
       <Box flex={1} padding="m">
-        <Box height={CARD_HEIGHT}>
-          <ScrollView horizontal>
-            <AddCard />
-            {cards.map((card) => (
-              <Card
-                key={card.id}
-                card={card}
-                selected={selectedCard === card.id}
-                onSelect={() => setSelectedCard(card.id)}
-              />
-            ))}
-          </ScrollView>
-        </Box>
-        <Box marginTop="xl">
-          <Text color="background" variant="title3">
-            Delivery Address
-          </Text>
-          <Box
-            flexDirection="row"
-            opacity={0.5}
-            paddingVertical="m"
-          >
-            <Box flex={1}>
-              <Text color="background">
-                Unit 15, York Farm Business Center
-              </Text>
-              <Text color="background">
-                Watling St, Towcester
-              </Text>
-            </Box>
-            <Box
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Text color="background">Change</Text>
-            </Box>
-          </Box>
-          <LineItem
-            label="Total Items (6)"
-            value={189.94}
-          />
-          <LineItem label="Standard Delivery" value={12} />
-          <LineItem label="Total Payment" value={281.84} />
-        </Box>
-        <Box
-          paddingVertical="l"
-          alignItems="center"
-          justifyContent="flex-end"
-          flex={1}
+        <ScrollView
+          style={{ flexGrow: 0 }}
+          horizontal
+          showsHorizontalScrollIndicator={false}
         >
-          <Button
-            label="Pay now"
-            variant="primary"
-            onPress={() => true}
-          />
+          <AddCard />
+          {cards.map((card) => (
+            <Card
+              key={card.id}
+              card={card}
+              selected={selectedCard === card.id}
+              onSelect={() => setSelectedCard(card.id)}
+            />
+          ))}
+        </ScrollView>
+      </Box>
+
+      <Box marginTop="xl">
+        <Text color="background" variant="title3">
+          Delivery Address
+        </Text>
+        <Box
+          flexDirection="row"
+          opacity={0.5}
+          paddingVertical="m"
+        >
+          <Box flex={1}>
+            <Text color="background">
+              Unit 15, York Farm Business Center
+            </Text>
+            <Text color="background">
+              Watling St, Towcester
+            </Text>
+          </Box>
+          <Box justifyContent="center" alignItems="center">
+            <Text color="background">Change</Text>
+          </Box>
         </Box>
+        <LineItem label="Total Items (6)" value={189.94} />
+        <LineItem label="Standard Delivery" value={12} />
+        <LineItem label="Total Payment" value={281.84} />
+      </Box>
+      
+      <Box
+        paddingVertical="l"
+        alignItems="center"
+        justifyContent="flex-end"
+        flex={1}
+      >
+        <Button
+          label="Pay now"
+          variant="primary"
+          onPress={() => true}
+        />
       </Box>
     </Box>
   );
