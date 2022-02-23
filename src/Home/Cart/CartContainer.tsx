@@ -75,7 +75,6 @@ const CartContainer = ({
             backgroundColor: "white",
             borderBottomLeftRadius: theme.borderRadii.xl,
             borderBottomRightRadius: theme.borderRadii.xl,
-            paddingBottom: theme.spacing.xl
           },
           style,
         ]}

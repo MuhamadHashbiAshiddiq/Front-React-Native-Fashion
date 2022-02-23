@@ -57,8 +57,8 @@ const Card = ({
       ctx.y = translateY.value;
     },
     onActive: ({ translationX, translationY }, ctx) => {
-      translateX.value = translationY + ctx.x;
-      translateY.value = translationX + ctx.y;
+      translateX.value = translationX + ctx.x;
+      translateY.value = translationY + ctx.y;
     },
     onEnd: ({ velocityX, velocityY }) => {
       translateX.value = withSpring(0, {
@@ -76,8 +76,8 @@ const Card = ({
           restSpeedThreshold: dest === 0 ? 0.01 : 100,
           restDisplacementThreshold:
             dest === 0 ? 0.01 : 100,
-        },
-        () => dest !== 0 && onSwipe()
+        }
+        // () => dest !== 0 && onSwipe()
       );
     },
   });

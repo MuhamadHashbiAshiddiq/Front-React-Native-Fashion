@@ -1,105 +1,101 @@
 import React, { ReactNode } from "react";
 import {
+  Dimensions,
   ViewStyle,
   TextStyle,
   ImageStyle,
-  Dimensions,
 } from "react-native";
 import {
-  ThemeProvider as ReStyleThemeProvider,
-  createBox,
+  createTheme,
   createText,
+  createBox,
   useTheme as useReTheme,
+  ThemeProvider as ReStyleThemeProvider,
 } from "@shopify/restyle";
 
 const { width } = Dimensions.get("window");
-export const aspectRatio = width / 375;
+export const aspectRatio = width / 374;
 
 export const palette = {
-  green: "#2CB9B0",
-  white: "white",
-  violet: "#442CB9",
+  white: "#FFFFFF",
+  cyan: "#2CB9B0",
+  lightCyan: "#E7F9F7",
+  darkBlue: "#0C0D34",
   orange: "#FE5E33",
-  pink: "#FF87A2",
   yellow: "#FFC641",
+  pink: "#FF87A2",
+  darkPink: "#FF0058",
+  violet: "#442CB9",
   lightBlue: "#BFEAF5",
+  grey: "#F4F0EF",
+  darkGrey: "#808080",
 };
 
-export const theme = {
+const theme = createTheme({
   colors: {
     background: palette.white,
-    primary: palette.green,
-    textContrast: palette.white,
-
-    button: "#0C0D34",
-    secondary: "#0C0D34",
-    title: "#0C0D34",
+    background2: palette.grey,
+    primary: palette.cyan,
+    primaryLight: palette.lightCyan,
+    secondary: palette.darkBlue,
+    info: palette.darkGrey,
     text: "rgba(12, 13, 52, 0.7)",
-    background2: "#F4F0EF",
-    info: "#8A8D90",
-    danger: "#FF0058",
-    primaryLight: "#E7F9F7",
-
     edit: palette.lightBlue,
-
+    danger: palette.darkPink,
+    body: "rgba(12, 13, 52, 0.7)",
     graph1: palette.orange,
     graph2: palette.yellow,
-
     drawer1: palette.orange,
     drawer2: palette.yellow,
     drawer3: palette.pink,
     drawer4: palette.violet,
   },
-
   spacing: {
     s: 8,
     m: 16,
     l: 24,
     xl: 40,
   },
-
   borderRadii: {
     s: 4,
     m: 10,
     l: 25,
     xl: 75,
   },
-
   textVariants: {
     hero: {
+      fontFamily: "SFProDisplay-Bold",
       fontSize: 80,
       lineHeight: 80,
-      fontFamily: "SFProDisplay-Bold",
       color: "background",
       textAlign: "center",
     },
     title1: {
-      fontSize: 28,
       fontFamily: "SFProDisplay-Semibold",
+      fontSize: 28,
       color: "secondary",
     },
     title2: {
+      fontFamily: "SFProDisplay-Semibold",
       fontSize: 24,
       lineHeight: 30,
-      fontFamily: "SFProDisplay-Semibold",
       color: "secondary",
     },
     title3: {
-      fontSize: 16,
       fontFamily: "SFProDisplay-Semibold",
+      fontSize: 16,
       color: "secondary",
     },
     body: {
+      fontFamily: "SFProDisplay-Regular",
       fontSize: 16,
       lineHeight: 24,
-      fontFamily: "SFProDisplay-Regular",
-      color: "text",
+      color: "body",
     },
     button: {
-      fontSize: 15,
       fontFamily: "SFProDisplay-Medium",
-      color: "text",
-      textAlign: "center",
+      fontSize: 15,
+      color: "secondary",
     },
     header: {
       fontSize: 12,
@@ -112,7 +108,7 @@ export const theme = {
     phone: 0,
     tablet: 768,
   },
-};
+});
 
 export const ThemeProvider = ({
   children,
@@ -123,7 +119,6 @@ export const ThemeProvider = ({
     {children}
   </ReStyleThemeProvider>
 );
-
 export type Theme = typeof theme;
 export const Box = createBox<Theme>();
 export const Text = createText<Theme>();
@@ -139,5 +134,3 @@ export const makeStyles =
     const currentTheme = useTheme();
     return styles(currentTheme);
   };
-
-// export default theme;

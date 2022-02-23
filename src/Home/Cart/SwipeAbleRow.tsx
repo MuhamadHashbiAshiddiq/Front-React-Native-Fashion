@@ -1,12 +1,7 @@
-import React, {
-  ReactNode,
-  useCallback,
-  useRef,
-} from "react";
+import React, { useCallback, ReactNode } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated, {
-  runOnJS,
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
@@ -17,11 +12,12 @@ import { snapPoint } from "react-native-redash";
 import { LinearGradient } from "expo-linear-gradient";
 
 import {
-  RoundedIconButton,
-  useTheme,
   Box,
+  RoundedIconButton,
+  Text,
+  useTheme,
 } from "../../components";
-import { aspectRatio, Text } from "../../components/Theme";
+import { aspectRatio } from "../../components/Theme";
 
 interface SwipeAbleRowProps {
   children: ReactNode;
@@ -39,14 +35,13 @@ const SwipeAbleRow = ({
   onDelete,
   height: defaultHeight,
 }: SwipeAbleRowProps) => {
+  const height = useSharedValue(defaultHeight);
   const theme = useTheme();
-  const translateX = useSharedValue(0);
-  const height = useSharedValue(0);
   const deleteItem = useCallback(() => {
-    // ref.current?.animateNextTransition();
     onDelete();
   }, [onDelete]);
 
+  const translateX = useSharedValue(0);
   const onGestureEvent = useAnimatedGestureHandler<{
     x: number;
   }>({
@@ -62,28 +57,31 @@ const SwipeAbleRow = ({
         velocityX,
         snapPoints
       );
-      translateX.value = withSpring(dest, {}, () => {
-        if (dest === finalDestination) {
-          height.value = withTiming(
-            0,
-            { duration: 250 },
-            () => runOnJS(onDelete)()
-          );
+      translateX.value = withSpring(
+        dest,
+        {
+          overshootClamping: true,
+        },
+        () => {
+          if (dest === finalDestination) {
+            height.value = withTiming(
+              0,
+              { duration: 250 },
+              () => deleteItem()
+            );
+          }
         }
-      });
+      );
     },
   });
-
   const style = useAnimatedStyle(() => ({
     height: height.value,
     backgroundColor: theme.colors.background,
     transform: [{ translateX: translateX.value }],
   }));
-
   const deleteStyle = useAnimatedStyle(() => ({
     opacity: translateX.value > 0 ? 1 : 0,
   }));
-
   const editStyle = useAnimatedStyle(() => ({
     opacity: translateX.value < 0 ? 1 : 0,
   }));
@@ -102,19 +100,17 @@ const SwipeAbleRow = ({
           start={[0, 0.5]}
           end={[1, 0.5]}
         />
-
         <Box
+          flex={1}
           justifyContent="space-evenly"
           width={editWidth}
           alignItems="center"
-          flex={1}
         >
-          <Text color="background" variant="header">
-            Delete
+          <Text color="background" variant="title3">
+            Remove
           </Text>
         </Box>
       </Animated.View>
-      
       <Animated.View
         style={[StyleSheet.absoluteFill, editStyle]}
       >
@@ -125,24 +121,24 @@ const SwipeAbleRow = ({
             theme.colors.background,
           ]}
           start={[1, 0.5]}
-          end={[0.7, 0.5]}
+          end={[0.8, 0.5]}
         />
         <Box
+          flex={1}
           justifyContent="space-evenly"
           width={editWidth}
           alignSelf="flex-end"
           alignItems="center"
-          flex={1}
         >
           <RoundedIconButton
-            onPress={() => alert("Hello!")}
+            onPress={() => alert("Plus")}
             name="plus"
             size={24}
             color="background"
             backgroundColor="primary"
           />
           <RoundedIconButton
-            onPress={() => alert("Hello!")}
+            onPress={() => alert("Minus")}
             name="minus"
             size={24}
             color="background"
@@ -150,7 +146,6 @@ const SwipeAbleRow = ({
           />
         </Box>
       </Animated.View>
-
       <PanGestureHandler onGestureEvent={onGestureEvent}>
         <Animated.View style={style}>
           {children}
