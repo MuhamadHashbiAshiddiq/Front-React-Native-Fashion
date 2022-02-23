@@ -20,8 +20,8 @@ import {
 export const assets = [require("./assets/drawer.png")];
 
 const { width } = Dimensions.get("window");
-export const DRAWER_WIDTH = width * 0.715;
-const aspectRatio = 750 / 1125;
+export const DRAWER_WIDTH = width * 0.68;
+const aspectRatio = 750 / 1500;
 const height = DRAWER_WIDTH * aspectRatio;
 
 const items: DrawerItemProps[] = [

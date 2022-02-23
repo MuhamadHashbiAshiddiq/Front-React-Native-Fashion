@@ -6,25 +6,19 @@ import {
   Image,
 } from "react-native";
 import Animated, {
-  Extrapolate,
-  interpolate,
   useAnimatedScrollHandler,
   useAnimatedStyle,
-  useDerivedValue,
+  interpolateColor,
   useSharedValue,
 } from "react-native-reanimated";
 import { ScrollView } from "react-native-gesture-handler";
-import { interpolateColor } from "react-native-redash";
 
-import Subslide from "./Subslide";
+import SliderImage from "./SliderImage";
+import Subslide from "./SubSlide";
 import Slide, { SLIDE_HEIGHT } from "./Slide";
 import Dot from "./Dot";
 
-import { useTheme } from "../../components";
-import {
-  ThemeContext,
-  makeStyles,
-} from "../../components/Theme";
+import { Theme, makeStyles } from "../../components/Theme";
 import { AuthNavigationProps } from "../../components/Navigation";
 
 const { width } = Dimensions.get("window");
@@ -88,70 +82,56 @@ const Onboarding = ({
   navigation,
 }: AuthNavigationProps<"Onboarding">) => {
   const styles = useStyles();
-  const theme = useTheme();
   const scroll = useRef<Animated.ScrollView>(null);
   const x = useSharedValue(0);
-  const onScroll = useAnimatedScrollHandler({
-    onScroll: ({ contentOffset }) => {
-      x.value = contentOffset.x;
-    },
-  });
-  const backgroundColor = useDerivedValue(() =>
-    interpolateColor(
+
+  const AnimBgColor = useAnimatedStyle(() => {
+    const backgroundColor = interpolateColor(
       x.value,
       slides.map((_, i) => i * width),
       slides.map((slide) => slide.color)
-    )
+    );
+
+    return {
+      backgroundColor,
+    };
+  });
+
+  const AnimBgColor2 = useAnimatedStyle(() => {
+    const backgroundColor = interpolateColor(
+      x.value,
+      slides.map((_, i) => i * width),
+      slides.map((slide) => slide.color)
+    );
+
+    return {
+      backgroundColor,
+    };
+  });
+
+  const scrollHandler = useAnimatedScrollHandler(
+    (event) => {
+      x.value = event.contentOffset.x;
+    }
   );
 
-  const slider = useAnimatedStyle(() => ({
-    backgroundColor: backgroundColor.value,
-  }));
-
-  const background = useAnimatedStyle(() => ({
-    backgroundColor: backgroundColor.value,
-  }));
-
-  const currentIndex = useDerivedValue(
-    () => x.value / width
-  );
-
-  const footerStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: -x.value }],
-  }));
+  const SubSlideStyles = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: -x.value }],
+    };
+  });
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.slider, slider]}>
+      <Animated.View style={[styles.slider, AnimBgColor]}>
         {slides.map(({ picture }, index) => {
-          const style = useAnimatedStyle(() => ({
-            opacity: interpolate(
-              x.value,
-              [
-                (index - 0.6) * width,
-                index * width,
-                (index + 0.6) * width,
-              ],
-              [0, 1, 0],
-              Extrapolate.CLAMP
-            ),
-          }));
           return (
-            <Animated.View
-              style={[styles.underlay, style]}
+            <SliderImage
               key={index}
-            >
-              <Image
-                source={picture.src}
-                style={{
-                  width: width - theme.borderRadii.xl,
-                  height:
-                    ((width - theme.borderRadii.xl) *
-                      picture.height) /
-                    picture.width,
-                }}
-              />
-            </Animated.View>
+              index={index}
+              scrollOffset={x}
+              picture={picture}
+            />
           );
         })}
         <Animated.ScrollView
@@ -160,33 +140,38 @@ const Onboarding = ({
           snapToInterval={width}
           decelerationRate="fast"
           showsHorizontalScrollIndicator={false}
-          scrollEventThrottle={0.1}
           bounces={false}
-          onScroll={onScroll}
+          scrollEventThrottle={16}
+          onScroll={scrollHandler}
         >
           {slides.map(({ title, picture }, index) => (
             <Slide
               key={index}
               right={!!(index % 2)}
-              {...{ title, picture }}
+              {...{ title, picture: picture.src }}
             />
           ))}
         </Animated.ScrollView>
       </Animated.View>
+
       <View style={styles.footer}>
         <Animated.View
-          style={[StyleSheet.absoluteFill, background]}
+          style={[
+            { ...StyleSheet.absoluteFillObject },
+            AnimBgColor2,
+          ]}
         />
-        <View style={styles.footerContent}>
-          <View style={styles.pagination}>
+        <Animated.View style={styles.footerContent}>
+          <Animated.View style={styles.pagination}>
             {slides.map((_, index) => (
               <Dot
                 key={index}
-                currentIndex={currentIndex}
-                {...{ index }}
+                scrollOffset={x}
+                index={index}
               />
             ))}
-          </View>
+          </Animated.View>
+
           <Animated.View
             style={[
               {
@@ -194,7 +179,7 @@ const Onboarding = ({
                 flexDirection: "row",
                 width: width * slides.length,
               },
-              footerStyle,
+              SubSlideStyles,
             ]}
           >
             {slides.map(
@@ -213,13 +198,14 @@ const Onboarding = ({
                         });
                       }
                     }}
-                    {...{ subtitle, description, last }}
+                    last={index === slides.length - 1}
+                    {...{ subtitle, description }}
                   />
                 );
               }
             )}
           </Animated.View>
-        </View>
+        </Animated.View>
       </View>
     </View>
   );
@@ -230,30 +216,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     flex: 1,
     backgroundColor: theme.colors.background,
   },
-
-  underlay: {
-    ...StyleSheet.absoluteFillObject,
-    alignItems: "center",
-    justifyContent: "flex-end",
-    borderBottomRightRadius: theme.borderRadii.xl,
-    overflow: "hidden",
-  },
-
   slider: {
     height: SLIDE_HEIGHT,
-    borderBottomRightRadius: theme.borderRadii.xl,
+    borderBottomEndRadius: theme.borderRadii.xl,
   },
-
   footer: {
     flex: 1,
   },
-
   footerContent: {
     flex: 1,
     backgroundColor: theme.colors.background,
     borderTopLeftRadius: theme.borderRadii.xl,
   },
-
   pagination: {
     ...StyleSheet.absoluteFillObject,
     height: theme.borderRadii.xl,

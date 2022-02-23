@@ -16,6 +16,7 @@ interface HeaderProps {
     onPress: () => void;
   };
   dark: boolean;
+  disableMarginTop?: boolean;
 }
 
 const Header = ({
@@ -23,15 +24,17 @@ const Header = ({
   right,
   left,
   dark,
+  disableMarginTop,
 }: HeaderProps) => {
   const insets = useSafeAreaInsets();
   const color = dark ? "background" : "secondary";
-  const backgroundColor = dark ? "secondary" : undefined;
 
   return (
     <Box
       flexDirection="row"
-      style={{ marginTop: insets.top }}
+      style={{
+        marginTop: !!disableMarginTop ? 0 : insets.top,
+      }}
       alignItems="center"
       justifyContent="space-between"
       paddingHorizontal="m"
@@ -41,7 +44,8 @@ const Header = ({
         iconRatio={0.4}
         name={left.icon}
         onPress={left.onPress}
-        {...{ color, backgroundColor }}
+        align="center"
+        {...{ color }}
       />
       <Text variant="header" {...{ color }}>
         {title.toUpperCase()}
@@ -52,22 +56,14 @@ const Header = ({
           iconRatio={0.4}
           name={right.icon}
           onPress={right.onPress}
-          align={
-            backgroundColor === undefined
-              ? "flex-end"
-              : "center"
-          }
-          {...{ color, backgroundColor }}
+          align="center"
+          {...{ color }}
         />
       ) : (
         <View style={{ width: 44 }} />
       )}
     </Box>
   );
-};
-
-Header.defaultProps = {
-  dark: false,
 };
 
 export default Header;
