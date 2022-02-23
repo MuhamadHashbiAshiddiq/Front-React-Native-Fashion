@@ -2,6 +2,7 @@ import React, { useCallback, ReactNode } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated, {
+  runOnJS,
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
@@ -57,21 +58,15 @@ const SwipeAbleRow = ({
         velocityX,
         snapPoints
       );
-      translateX.value = withSpring(
-        dest,
-        {
-          overshootClamping: true,
-        },
-        () => {
-          if (dest === finalDestination) {
-            height.value = withTiming(
-              0,
-              { duration: 250 },
-              () => deleteItem()
-            );
-          }
+      translateX.value = withSpring(dest, {}, () => {
+        if (dest === finalDestination) {
+          height.value = withTiming(
+            0,
+            { duration: 150 },
+            () => runOnJS(onDelete)()
+          );
         }
-      );
+      });
     },
   });
   const style = useAnimatedStyle(() => ({
