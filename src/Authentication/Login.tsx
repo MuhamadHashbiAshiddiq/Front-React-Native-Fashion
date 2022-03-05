@@ -25,7 +25,6 @@ import { AuthNavigationProps } from "../components/Navigation";
 import api, { baseUrlAxios } from "../utils/api";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect } from "react";
 
 const Login = ({
   navigation,
@@ -54,26 +53,19 @@ const Login = ({
     resolver: yupResolver(LoginSchema),
   });
 
-  const login = async () => {
-    // console.log(email, password);
+  const login = async (data: any) => {
+    console.log(data);
     try {
-      const res = await api
-        .post("login", { email, password })
-        .then(() => {
-          navigation.dispatch(StackActions.replace("Home"));
-        });
+      const res = await api.post("login", data).then(() => {
+        navigation.dispatch(StackActions.replace("Home"));
+      });
       console.log(res);
     } catch (err) {
       setIsLoading(false);
       setError(true);
-      // alert(err.message);
-      console.log(err);
+      alert("Login Failed !!");
     }
   };
-
-  useEffect(() => {
-    login();
-  }, []);
 
   const password = useRef<RNTextInput>(null);
 
@@ -84,6 +76,7 @@ const Login = ({
       onPress={() => navigation.navigate("SignUp")}
     />
   );
+
   return (
     <Container pattern={2} footer={footer}>
       <Box padding="l">
@@ -102,29 +95,30 @@ const Login = ({
           Use your credentials below to login to your
           account
         </Text>
-
-        <Controller
-          control={control}
-          name="email"
-          render={({
-            field: { onChange, value, onBlur },
-          }) => {
-            return (
-              <TextInput
-                icon="mail"
-                placeholder="Enter your Email"
-                autoCompleteType="email"
-                keyboardType="email-address"
-                autoCapitalize="none"
-                onBlur={onBlur}
-                value={value}
-                error={errors.email}
-                errorMessage={errors?.email?.message}
-                onChangeText={(text) => onChange(text)}
-              ></TextInput>
-            );
-          }}
-        />
+        <Box marginBottom="m">
+          <Controller
+            control={control}
+            name="email"
+            render={({
+              field: { onChange, value, onBlur },
+            }) => {
+              return (
+                <TextInput
+                  icon="mail"
+                  placeholder="Enter your Email"
+                  autoCompleteType="email"
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  onBlur={onBlur}
+                  value={value}
+                  error={errors.email}
+                  errorMessage={errors?.email?.message}
+                  onChangeText={(text) => onChange(text)}
+                ></TextInput>
+              );
+            }}
+          />
+        </Box>
 
         <Controller
           control={control}

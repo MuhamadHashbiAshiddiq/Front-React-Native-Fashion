@@ -1,13 +1,10 @@
 import axios from "axios";
 
-export default axios.create({
-  baseURL: "http://192.168.1.6:8000",
-});
+export const API_URL = "http://192.168.1.6:8000";
 
-export const baseUrlAxios = axios.create({
-  baseURL: "http://192.168.1.6:8000",
-  withCredentials: true,
+export default axios.create({
+  baseURL: `${API_URL}/api`,
   headers: {
-      'Content-Type': 'application/json'
+    "Content-Type": "application/json",
   },
-})
+});
