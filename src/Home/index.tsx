@@ -8,6 +8,7 @@ import Cart from "./Cart";
 import OutfitIdeas from "./OutfitIdeas";
 import FavoriteOutfits from "./FavoriteOutfits";
 import TransactionHistory from "./TransactionHistory";
+import ProductList from "./ProductList";
 
 import { HomeRoutes } from "../components/Navigation";
 
@@ -40,5 +41,6 @@ export const HomeNavigator = () => (
     />
     <Drawer.Screen name="Settings" component={Settings} />
     <Drawer.Screen name="Cart" component={Cart} />
+    <Drawer.Screen name="ProductList" component={ProductList} />
   </Drawer.Navigator>
 );

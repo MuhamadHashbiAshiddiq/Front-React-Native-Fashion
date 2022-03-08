@@ -4,6 +4,7 @@ import {
 } from "@react-navigation/native";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { StackNavigationProp } from "@react-navigation/stack";
+import ProductList from "../Home/OutfitIdeas/ProductList";
 
 export interface AuthNavigationProps<
   RouteName extends keyof AuthenticationRoutes
@@ -42,5 +43,6 @@ export type HomeRoutes = {
   TransactionHistory: undefined;
   EditProfile: undefined;
   Settings: undefined;
-  cart: undefined;
+  Cart: undefined;
+  ProductList: undefined;
 };

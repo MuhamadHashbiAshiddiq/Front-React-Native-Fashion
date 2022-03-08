@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import api from "../utils/api";
 import TextInput from "../components/Form/TextInput";
 import Footer from "./components/Footer";
 
@@ -12,9 +12,12 @@ import {
   Box,
 } from "../components";
 import { AuthNavigationProps } from "../components/Navigation";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Controller, useForm } from "react-hook-form";
+import { StackActions } from "@react-navigation/native";
 
 const SignUpSchema = Yup.object().shape({
-  passwordConfirmation: Yup.string()
+  passwordConfirm: Yup.string()
     .equals([Yup.ref("password")], "Passwords must match")
     .required("Required"),
   password: Yup.string()
@@ -29,25 +32,36 @@ const SignUpSchema = Yup.object().shape({
 const SignUp = ({
   navigation,
 }: AuthNavigationProps<"SignUp">) => {
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
-    handleChange,
-    handleBlur,
+    control,
     handleSubmit,
-    errors,
-    touched,
-  } = useFormik({
-    validationSchema: SignUpSchema,
-    initialValues: {
-      email: "",
-      password: "",
-      passwordConfirmation: "",
-    },
-    onSubmit: (values) => console.log(values),
+    formState: { errors, isValid },
+  } = useForm({
+    mode: "onBlur",
+    resolver: yupResolver(SignUpSchema),
   });
 
+  const signUp = async (data: any) => {
+    console.log(data);
+    try {
+      const res = await api
+        .post("register", data)
+        .then(() => {
+          navigation.dispatch(StackActions.replace("Home"));
+        });
+      console.log(res);
+    } catch (err) {
+      setIsLoading(false);
+      setError(true);
+      alert("Register Failed !!");
+    }
+  };
+
   const password = useRef<typeof TextInput>(null);
-  const passwordConfirmation =
-    useRef<typeof TextInput>(null);
+  const passwordConfirm = useRef<typeof TextInput>(null);
 
   const footer = (
     <Footer
@@ -58,87 +72,103 @@ const SignUp = ({
   );
 
   return (
-    <Container pattern={1} {...{ footer }}>
-      <Text
-        variant="title1"
-        textAlign="center"
-        marginBottom="l"
-      >
-        Create account
-      </Text>
-      <Text
-        variant="body"
-        textAlign="center"
-        marginBottom="l"
-      >
-        Let's us know what your name, email, and your
-        password
-      </Text>
+    <Container pattern={1} footer={footer}>
+      <Box padding="l">
+        <Text
+          variant="title1"
+          textAlign="center"
+          marginBottom="m"
+        >
+          Create Account
+        </Text>
+        <Text
+          textAlign="center"
+          variant="body"
+          marginBottom="l"
+        >
+          Let us know what's your name, email, and your
+          password
+        </Text>
 
-      <Box>
         <Box marginBottom="m">
-          <TextInput
-            icon="mail"
-            placeholder="Enter your email"
-            onChangeText={handleChange("email")}
-            onBlur={handleBlur("email")}
-            error={errors.email}
-            touched={touched.email}
-            autoCapitalize="none"
-            autoCompleteType="email"
-            returnKeyType="next"
-            returnKeyLabel="next"
-            onSubmitEditing={() =>
-              password.current?.focus()
-            }
+          <Controller
+            control={control}
+            name="email"
+            render={({
+              field: { onChange, value, onBlur },
+            }) => {
+              return (
+                <TextInput
+                  icon="mail"
+                  placeholder="Enter your Email"
+                  autoCompleteType="email"
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  onBlur={onBlur}
+                  value={value}
+                  error={errors.email}
+                  errorMessage={errors?.email?.message}
+                  onChangeText={(text) => onChange(text)}
+                ></TextInput>
+              );
+            }}
           />
         </Box>
 
         <Box marginBottom="m">
-          <TextInput
-            ref={password}
-            icon="lock"
-            placeholder="Enter your password"
-            onChangeText={handleChange("password")}
-            onBlur={handleBlur("password")}
-            error={errors.password}
-            touched={touched.password}
-            autoCompleteType="password"
-            autoCapitalize="none"
-            returnKeyType="next"
-            returnKeyLabel="next"
-            onSubmit={() =>
-              passwordConfirmation.current?.focus()
-            }
-            secureTextEntry
+          <Controller
+            control={control}
+            name="password"
+            render={({
+              field: { onChange, value, onBlur },
+            }) => {
+              return (
+                <TextInput
+                  icon="lock"
+                  placeholder="Enter your Password"
+                  secureTextEntry={true}
+                  autoCapitalize="none"
+                  onBlur={onBlur}
+                  value={value}
+                  error={errors.password}
+                  errorMessage={errors?.password?.message}
+                  onChangeText={(text) => onChange(text)}
+                ></TextInput>
+              );
+            }}
           />
         </Box>
 
-        <Box marginBottom="m">
-          <TextInput
-            ref={passwordConfirmation}
-            icon="lock"
-            placeholder="Confirm your password"
-            onChangeText={handleChange(
-              "passwordConfirmation"
-            )}
-            onBlur={handleBlur("passwordConfirmation")}
-            error={errors.passwordConfirmation}
-            touched={touched.passwordConfirmation}
-            autoCompleteType="password"
-            autoCapitalize="none"
-            returnKeyType="go"
-            returnKeyLabel="go"
-            onSubmit={() => handleSubmit()}
-            secureTextEntry
-          />
-        </Box>
+        <Controller
+          control={control}
+          name="passwordConfirm"
+          render={({
+            field: { onChange, value, onBlur },
+          }) => {
+            return (
+              <TextInput
+                icon="lock"
+                placeholder="Confirm your password"
+                secureTextEntry={true}
+                autoCapitalize="none"
+                onBlur={onBlur}
+                value={value}
+                error={errors.passwordConfirm}
+                errorMessage={
+                  errors?.passwordConfirm?.message
+                }
+                onChangeText={(text) => onChange(text)}
+              ></TextInput>
+            );
+          }}
+        />
 
         <Box alignItems="center" marginTop="m">
           <Button
+            isLoading={isLoading}
             variant="primary"
-            onPress={handleSubmit}
-            label="Log into your account"
+            label="Create Your Account"
+            onPress={handleSubmit(signUp)}
           />
         </Box>
       </Box>

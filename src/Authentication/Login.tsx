@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import * as Yup from "yup";
 import { TextInput as RNTextInput } from "react-native";
 import { useFormik } from "formik";
@@ -6,6 +6,7 @@ import { BorderlessButton } from "react-native-gesture-handler";
 import {
   CommonActions,
   CompositeNavigationProp,
+  StackActions,
 } from "@react-navigation/native";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -21,43 +22,50 @@ import {
   Box,
 } from "../components";
 import { AuthNavigationProps } from "../components/Navigation";
-
-const LoginSchema = Yup.object().shape({
-  password: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-  email: Yup.string()
-    .email("Invalid email")
-    .required("Required"),
-});
+import api, { baseUrlAxios } from "../utils/api";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const Login = ({
   navigation,
 }: AuthNavigationProps<"Login">) => {
-  const {
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    errors,
-    touched,
-    values,
-    setFieldValue,
-  } = useFormik({
-    validationSchema: LoginSchema,
-    initialValues: {
-      email: "",
-      password: "",
-      remember: false,
-    },
-    onSubmit: () =>
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: "Home" }],
-        })
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const LoginSchema = Yup.object().shape({
+    email: Yup.string()
+      .required("Email is required")
+      .email("Email is not valid"),
+    password: Yup.string()
+      .required("Password is required")
+      .min(
+        2,
+        "Password length should be at least 4 characters"
       ),
   });
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(LoginSchema),
+  });
+
+  const login = async (data: any) => {
+    console.log(data);
+    try {
+      const res = await api.post("login", data).then(() => {
+        navigation.dispatch(StackActions.replace("Home"));
+      });
+      console.log(res);
+    } catch (err) {
+      setIsLoading(false);
+      setError(true);
+      alert("Login Failed !!");
+    }
+  };
 
   const password = useRef<RNTextInput>(null);
 
@@ -70,83 +78,111 @@ const Login = ({
   );
 
   return (
-    <Container pattern={0} {...{ footer }}>
-      <Text
-        variant="title1"
-        textAlign="center"
-        marginBottom="l"
-      >
-        Welcome back
-      </Text>
-      <Text
-        variant="body"
-        textAlign="center"
-        marginBottom="l"
-      >
-        Use your credentials below and login to your account
-      </Text>
-
-      <Box>
-        <Box marginBottom="m">
-          <TextInput
-            icon="mail"
-            placeholder="Enter your email"
-            onChangeText={handleChange("email")}
-            onBlur={handleBlur("email")}
-            error={errors.email}
-            touched={touched.email}
-            autoCapitalize="none"
-            autoCompleteType="email"
-            returnKeyType="next"
-            returnKeyLabel="next"
-            onSubmitEditing={() =>
-              password.current?.focus()
-            }
-          />
-        </Box>
-        <TextInput
-          ref={password}
-          icon="lock"
-          placeholder="Enter your password"
-          onChangeText={handleChange("password")}
-          onBlur={handleBlur("password")}
-          error={errors.password}
-          touched={touched.password}
-          autoCompleteType="password"
-          autoCapitalize="none"
-          returnKeyType="go"
-          returnKeyLabel="go"
-          onSubmit={() => handleSubmit()}
-          secureTextEntry
-        />
-        <Box
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
-          marginVertical="s"
+    <Container pattern={2} footer={footer}>
+      <Box padding="l">
+        <Text
+          variant="title1"
+          textAlign="center"
+          marginBottom="m"
         >
-          <Checkbox
-            label="Remember me"
-            checked={values.remember}
-            onChange={() =>
-              setFieldValue("remember", !values.remember)
-            }
+          Welcome Back
+        </Text>
+        <Text
+          textAlign="center"
+          variant="body"
+          marginBottom="l"
+        >
+          Use your credentials below to login to your
+          account
+        </Text>
+        <Box marginBottom="m">
+          <Controller
+            control={control}
+            name="email"
+            render={({
+              field: { onChange, value, onBlur },
+            }) => {
+              return (
+                <TextInput
+                  icon="mail"
+                  placeholder="Enter your Email"
+                  autoCompleteType="email"
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  onBlur={onBlur}
+                  value={value}
+                  error={errors.email}
+                  errorMessage={errors?.email?.message}
+                  onChangeText={(text) => onChange(text)}
+                ></TextInput>
+              );
+            }}
           />
-          <BorderlessButton
-            onPress={() =>
-              navigation.navigate("ForgotPassword")
-            }
-          >
-            <Text variant="button" color="primary">
-              Forget Password?
-            </Text>
-          </BorderlessButton>
         </Box>
+
+        <Controller
+          control={control}
+          name="password"
+          render={({
+            field: { onChange, value, onBlur },
+          }) => {
+            return (
+              <TextInput
+                icon="lock"
+                placeholder="Enter your Password"
+                secureTextEntry={true}
+                autoCapitalize="none"
+                onBlur={onBlur}
+                value={value}
+                error={errors.password}
+                errorMessage={errors?.password?.message}
+                onChangeText={(text) => onChange(text)}
+              ></TextInput>
+            );
+          }}
+        />
+
+        <Controller
+          control={control}
+          name="rememberMe"
+          render={({
+            field: { onChange, value, onBlur },
+          }) => {
+            const rememberMe = (data: boolean) =>
+              onChange(data);
+            return (
+              <Box
+                flexDirection="row"
+                justifyContent="space-between"
+                paddingVertical="m"
+              >
+                {/* <Checkbox label="Remeber me" hookFormData={rememberMe} /> */}
+
+                <BorderlessButton
+                  rippleColor="rgba(0,0,0,0)"
+                  onPress={() =>
+                    navigation.navigate("ForgotPassword")
+                  }
+                >
+                  <Text color="primary">
+                    Forgot Password?
+                  </Text>
+                </BorderlessButton>
+              </Box>
+            );
+          }}
+        />
+
+        {error && (
+          <Text color="danger">Invalid Credentials</Text>
+        )}
+
         <Box alignItems="center" marginTop="m">
           <Button
+            isLoading={isLoading}
             variant="primary"
-            onPress={handleSubmit}
-            label="Log into your account"
+            label="Log In"
+            onPress={handleSubmit(login)}
           />
         </Box>
       </Box>
