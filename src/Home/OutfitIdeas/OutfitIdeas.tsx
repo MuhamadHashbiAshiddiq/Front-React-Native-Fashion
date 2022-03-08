@@ -9,8 +9,14 @@ import Background from "./Background";
 import Card from "./Card";
 import Categories from "./Categories";
 
-import { Box, Header } from "../../components";
+import {
+  Box,
+  Button,
+  Header,
+  Text,
+} from "../../components";
 import { HomeNavigationProps } from "../../components/Navigation";
+import { BorderlessButton } from "react-native-gesture-handler";
 
 const cards = [
   {
@@ -71,6 +77,22 @@ const OutfitIdeas = ({
               />
             )
         )}
+        <Box
+          flex={1}
+          marginBottom="xl"
+          justifyContent="flex-end"
+          alignItems="center"
+        >
+          <BorderlessButton
+            onPress={() =>
+              navigation.navigate("ProductList")
+            }
+          >
+            <Text variant="hero" fontSize={16}>
+              List Product
+            </Text>
+          </BorderlessButton>
+        </Box>
       </Box>
     </Box>
   );
