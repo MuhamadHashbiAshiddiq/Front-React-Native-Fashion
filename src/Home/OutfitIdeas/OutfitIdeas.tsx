@@ -77,7 +77,7 @@ const OutfitIdeas = ({
               />
             )
         )}
-        <Box
+        {/* <Box
           flex={1}
           marginBottom="xl"
           justifyContent="flex-end"
@@ -92,7 +92,7 @@ const OutfitIdeas = ({
               List Product
             </Text>
           </BorderlessButton>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );
