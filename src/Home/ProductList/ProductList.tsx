@@ -1,28 +1,18 @@
 import React, { useEffect, useState } from "react";
-import {
-  ScrollView,
-  View,
-  FlatList,
-  ActivityIndicator,
-} from "react-native";
+import { FlatList, StatusBar, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HomeRoutes } from "../../components/Navigation";
-import { Box, Text, Image } from "../../components/Theme";
+import { Image, Text } from "../../components/Theme";
 import api from "../../utils/api";
-import NewsCard from "./NewsCard";
-import { Product } from "./Product";
-import { StyleSheet, StatusBar } from "react-native";
 
-const Item = ({ title }) => {
+const Item = ({ title }: { title: any }) => {
   // console.log("title", title);
-  <View style={StyleSheet.item}>
+  <View style={styles.item}>
     <Text style={styles.title}>{title}</Text>
   </View>;
 };
 
-const ProductList = ({
-  navigation,
-}: HomeRoutes<ProductList>) => {
+const ProductList = ({ navigation }: HomeRoutes<ProductList>) => {
   const [data, setData] = useState([]);
   // const [isLoading, setIsLoading] = useState(false);
 
@@ -60,7 +50,7 @@ const ProductList = ({
     getDataProduct();
   }, []);
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }: { item: any }) => (
     <>
       <View
         style={{
@@ -81,9 +71,7 @@ const ProductList = ({
             justifyContent: "space-between",
           }}
         >
-          <Text Style={{ fontWeight: "bold" }}>
-            {item.title}
-          </Text>
+          <Text Style={{ fontWeight: "bold" }}>{item.title}</Text>
         </View>
       </View>
     </>
@@ -98,7 +86,7 @@ const ProductList = ({
         )} */}
       <View style={{ flex: 1 }}>
         <FlatList
-          data={data.data}
+          data={data}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />

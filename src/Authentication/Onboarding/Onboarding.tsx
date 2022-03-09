@@ -1,10 +1,5 @@
 import React, { useRef } from "react";
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  Image,
-} from "react-native";
+import { View, StyleSheet, Dimensions, Image } from "react-native";
 import Animated, {
   useAnimatedScrollHandler,
   useAnimatedStyle,
@@ -14,7 +9,7 @@ import Animated, {
 import { ScrollView } from "react-native-gesture-handler";
 
 import SliderImage from "./SliderImage";
-import Subslide from "./SubSlide";
+import Subslide from "./Subslide";
 import Slide, { SLIDE_HEIGHT } from "./Slide";
 import Dot from "./Dot";
 
@@ -74,13 +69,9 @@ const slides = [
   },
 ];
 
-export const assets = slides.map(
-  (slide) => slide.picture.src
-);
+export const assets = slides.map((slide) => slide.picture.src);
 
-const Onboarding = ({
-  navigation,
-}: AuthNavigationProps<"Onboarding">) => {
+const Onboarding = ({ navigation }: AuthNavigationProps<"Onboarding">) => {
   const styles = useStyles();
   const scroll = useRef<Animated.ScrollView>(null);
   const x = useSharedValue(0);
@@ -109,11 +100,9 @@ const Onboarding = ({
     };
   });
 
-  const scrollHandler = useAnimatedScrollHandler(
-    (event) => {
-      x.value = event.contentOffset.x;
-    }
-  );
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    x.value = event.contentOffset.x;
+  });
 
   const SubSlideStyles = useAnimatedStyle(() => {
     return {
@@ -156,19 +145,12 @@ const Onboarding = ({
 
       <View style={styles.footer}>
         <Animated.View
-          style={[
-            { ...StyleSheet.absoluteFillObject },
-            AnimBgColor2,
-          ]}
+          style={[{ ...StyleSheet.absoluteFillObject }, AnimBgColor2]}
         />
         <Animated.View style={styles.footerContent}>
           <Animated.View style={styles.pagination}>
             {slides.map((_, index) => (
-              <Dot
-                key={index}
-                scrollOffset={x}
-                index={index}
-              />
+              <Dot key={index} scrollOffset={x} index={index} />
             ))}
           </Animated.View>
 
@@ -182,28 +164,26 @@ const Onboarding = ({
               SubSlideStyles,
             ]}
           >
-            {slides.map(
-              ({ subtitle, description }, index) => {
-                const last = index === slides.length - 1;
-                return (
-                  <Subslide
-                    key={index}
-                    onPress={() => {
-                      if (last) {
-                        navigation.navigate("Welcome");
-                      } else {
-                        scroll.current?.scrollTo({
-                          x: width * (index + 1),
-                          animated: true,
-                        });
-                      }
-                    }}
-                    last={index === slides.length - 1}
-                    {...{ subtitle, description }}
-                  />
-                );
-              }
-            )}
+            {slides.map(({ subtitle, description }, index) => {
+              const last = index === slides.length - 1;
+              return (
+                <Subslide
+                  key={index}
+                  onPress={() => {
+                    if (last) {
+                      navigation.navigate("Welcome");
+                    } else {
+                      scroll.current?.scrollTo({
+                        x: width * (index + 1),
+                        animated: true,
+                      });
+                    }
+                  }}
+                  last={index === slides.length - 1}
+                  {...{ subtitle, description }}
+                />
+              );
+            })}
           </Animated.View>
         </Animated.View>
       </View>
